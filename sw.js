@@ -1,6 +1,6 @@
 // 廚房 SOP Pro — Service Worker
 // 版本控制：更新此號碼以強制刷新快取
-const VERSION = 'ksop-v2.0.0';
+const VERSION = 'ksop-v2.1.0';
 
 const CORE_ASSETS = [
   './',
