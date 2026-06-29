@@ -72,10 +72,11 @@ body::before{content:'';position:fixed;inset:0;pointer-events:none;z-index:0;
 .user-info .urole{font-size:10px;color:var(--text-muted)}
 
 /* ── MAIN ── */
-.main{margin-left:var(--sidebar-w);min-height:100vh;position:relative;z-index:1}
+.main{margin-left:var(--sidebar-w);min-height:100vh;position:relative;z-index:1;padding-top:var(--topbar-h)}
 .topbar{height:var(--topbar-h);background:rgba(8,12,24,.85);backdrop-filter:blur(20px);
   border-bottom:1px solid var(--border);display:flex;align-items:center;
-  justify-content:space-between;padding:0 28px;position:sticky;top:0;z-index:50}
+  justify-content:space-between;padding:0 28px;
+  position:fixed;top:0;left:var(--sidebar-w);right:0;z-index:50}
 .page-title h2{font-size:17px;font-weight:700}
 .topbar-actions{display:flex;align-items:center;gap:8px}
 
@@ -389,12 +390,13 @@ textarea.form-input{resize:vertical;min-height:76px}
     padding-top:env(safe-area-inset-top,0px)}
   .sidebar.open{transform:translateX(0);box-shadow:8px 0 48px rgba(0,0,0,.75)}
 
-  /* 主容器 — 底部 padding = 底部導覽列高度 + Home 指示器 */
+  /* 主容器 — 頂部補 topbar 高度，底部補底部導覽列 */
   .main{margin-left:0!important;
+    padding-top:calc(54px + env(safe-area-inset-top,0px));
     padding-bottom:calc(68px + env(safe-area-inset-bottom,0px))}
 
-  /* Topbar — 吸收瀏海/狀態列高度，內容在安全區以下自動置中 */
-  .topbar{padding:env(safe-area-inset-top,0px) 14px 0;
+  /* Topbar — fixed 固定，left:0 覆蓋全寬，吸收瀏海高度 */
+  .topbar{left:0;padding:env(safe-area-inset-top,0px) 14px 0;
     height:calc(54px + env(safe-area-inset-top,0px))}
 
   .page-content{padding:14px 12px}
@@ -511,7 +513,8 @@ textarea.form-input{resize:vertical;min-height:76px}
   .stat-value{font-size:19px}
   .stat-label{font-size:10px}
   .page-content{padding:12px 10px}
-  .topbar{padding:env(safe-area-inset-top,0px) 10px 0;height:calc(52px + env(safe-area-inset-top,0px))}
+  .topbar{left:0;padding:env(safe-area-inset-top,0px) 10px 0;height:calc(52px + env(safe-area-inset-top,0px))}
+  .main{padding-top:calc(52px + env(safe-area-inset-top,0px))}
   #btn-install,#btn-update{display:none!important}
 
   .rc-body{padding:10px 12px}
