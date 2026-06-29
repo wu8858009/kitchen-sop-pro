@@ -662,7 +662,7 @@ textarea.form-input{resize:vertical;min-height:76px}
 .staff-tab.active{background:linear-gradient(135deg,var(--accent-gold),var(--accent-gold-d));color:#000}
 .staff-pane{display:none}
 .staff-pane.active{display:block}
-.week-grid{display:grid;grid-template-columns:repeat(7,1fr);gap:10px}
+.week-grid{display:grid;grid-template-columns:repeat(7,1fr);gap:10px;align-items:start}
 .week-day-card{background:var(--bg-card);border:1px solid var(--border);border-radius:var(--r);
   padding:12px;display:flex;flex-direction:column;gap:8px;min-width:0}
 .week-day-card.today{border-color:var(--accent-gold);box-shadow:0 0 0 1px rgba(245,158,11,.3)}
@@ -2878,19 +2878,19 @@ function renderStaffToday(){
     `${d.getFullYear()} 年 ${d.getMonth()+1} 月 ${d.getDate()} 日（星期${weekDays[d.getDay()]}）`;
   document.getElementById('staff-count-disp').textContent=sm.staffCount||5;
   document.getElementById('slog-portions').value=sm.staffCount||5;
-  // 本週計畫中今天的安排
-  const plan=(sm.weekPlan||{})[tk];
+  // 本週計畫中今天的安排（支援多菜）
+  let planDishes=(sm.weekPlan||{})[tk];
+  if(planDishes&&!Array.isArray(planDishes)) planDishes=(planDishes.recipeId||planDishes.customName)?[planDishes]:[];
   const planWrap=document.getElementById('staff-today-plan-wrap');
-  if(plan&&(plan.recipeId||plan.customName)){
+  if(planDishes&&planDishes.length){
     planWrap.style.display='';
-    let planName='';
-    if(plan.type==='recipe'){
-      const sr=(sm.staffRecipes||[]).find(x=>x.id===plan.recipeId);
-      planName=sr?`${sr.emoji||'🍱'} ${sr.name}`:'（菜色已刪除）';
-    } else {
-      planName=plan.customName||'（未設定）';
-    }
-    document.getElementById('staff-today-plan').textContent=planName;
+    const srs=sm.staffRecipes||[];
+    const names=planDishes.map(dish=>{
+      if(dish.type==='custom') return dish.customName||'';
+      const sr=srs.find(x=>x.id===dish.recipeId);
+      return sr?`${sr.emoji||'🍱'} ${sr.name}`:'';
+    }).filter(Boolean);
+    document.getElementById('staff-today-plan').textContent=names.join('、')||'（未設定）';
   } else {
     planWrap.style.display='none';
   }
@@ -2971,59 +2971,93 @@ function renderWeekPlan(){
   const monday=new Date(now);
   monday.setDate(now.getDate()-(dow===0?6:dow-1));
   const dayLabels=['一','二','三','四','五','六','日'];
+  const srs=sm.staffRecipes||[];
   let html='';
   for(let i=0;i<7;i++){
     const d=new Date(monday);
     d.setDate(monday.getDate()+i);
     const key=d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0');
     const isToday=key===tk;
-    const plan=(sm.weekPlan||{})[key]||{type:'recipe',recipeId:'',customName:'',note:''};
-    const recipeOpts=(sm.staffRecipes||[]).map(r=>`<option value="${r.id}"${plan.recipeId===r.id?' selected':''}>${r.emoji||'🍱'} ${r.name}</option>`).join('');
+    // 舊格式（物件）自動升級成陣列
+    let dishes=sm.weekPlan[key];
+    if(!dishes) dishes=[];
+    else if(!Array.isArray(dishes)){
+      dishes=(dishes.recipeId||dishes.customName)?[{id:uid(),...dishes}]:[];
+      sm.weekPlan[key]=dishes; persistStaff();
+    }
+    const dishesHtml=dishes.map(dish=>{
+      const isCustom=dish.type==='custom';
+      const recOpts='<option value="">— 選菜色 —</option>'+
+        srs.map(r=>`<option value="${r.id}"${dish.recipeId===r.id?' selected':''}>${r.emoji||'🍱'} ${r.name}</option>`).join('');
+      return `<div style="display:flex;gap:4px;align-items:center;background:var(--bg-glass);border:1px solid var(--border);border-radius:6px;padding:5px;margin-bottom:4px">
+        <select id="wdt-${key}-${dish.id}" onchange="toggleWeekDishType('${key}','${dish.id}')"
+          style="font-size:11px;padding:3px 2px;width:56px;flex-shrink:0;background:var(--bg-secondary);border:1px solid var(--border);border-radius:4px;color:var(--text-primary)">
+          <option value="recipe"${!isCustom?' selected':''}>菜單</option>
+          <option value="custom"${isCustom?' selected':''}>自訂</option>
+        </select>
+        <div style="flex:1;min-width:0">
+          <select id="wdr-${key}-${dish.id}" onchange="saveWeekDish('${key}','${dish.id}')"
+            style="font-size:11px;padding:3px 4px;width:100%;background:var(--bg-secondary);border:1px solid var(--border);border-radius:4px;color:var(--text-primary);${isCustom?'display:none':''}">
+            ${recOpts}
+          </select>
+          <input type="text" id="wdc-${key}-${dish.id}" value="${dish.customName||''}"
+            oninput="saveWeekDish('${key}','${dish.id}')" placeholder="菜名…"
+            style="font-size:11px;padding:3px 6px;width:100%;background:transparent;border:1px solid var(--border);border-radius:4px;color:var(--text-primary);outline:none;${!isCustom?'display:none':''}">
+        </div>
+        <button onclick="removeWeekDish('${key}','${dish.id}')"
+          style="flex-shrink:0;width:20px;height:20px;font-size:10px;background:rgba(239,68,68,.12);color:var(--accent-red);border:1px solid rgba(239,68,68,.2);border-radius:4px;cursor:pointer;line-height:1">✕</button>
+      </div>`;
+    }).join('');
     html+=`<div class="week-day-card${isToday?' today':''}">
       <div>
         <span class="week-day-label">星期${dayLabels[i]}</span>
         ${isToday?'<span class="week-today-badge">今天</span>':''}
       </div>
       <div class="week-day-date">${d.getMonth()+1}/${d.getDate()}</div>
-      <select class="form-input" id="wt-${key}" onchange="updateWeekPlanType('${key}')" style="font-size:12px;padding:5px 8px">
-        <option value="recipe"${plan.type==='recipe'?' selected':''}>從菜單選</option>
-        <option value="custom"${plan.type==='custom'?' selected':''}>自訂菜名</option>
-      </select>
-      <div id="wr-${key}"${plan.type==='custom'?' style="display:none"':''}>
-        <select class="form-input" id="wrv-${key}" onchange="saveWeekPlan('${key}')" style="font-size:12px;padding:5px 8px">
-          <option value="">— 選擇食譜 —</option>${recipeOpts}
-        </select>
-      </div>
-      <div id="wc-${key}"${plan.type==='recipe'?' style="display:none"':''}>
-        <input type="text" class="form-input" id="wcv-${key}" value="${plan.customName||''}"
-          placeholder="菜名…" oninput="saveWeekPlan('${key}')" style="font-size:12px;padding:5px 8px">
-      </div>
-      <input type="text" class="form-input" id="wn-${key}" value="${plan.note||''}"
-        placeholder="備註…" oninput="saveWeekPlan('${key}')" style="font-size:11px;padding:4px 8px;color:var(--text-secondary)">
+      <div>${dishesHtml}</div>
+      <button onclick="addWeekDish('${key}')"
+        style="font-size:11px;padding:4px 0;width:100%;background:rgba(245,158,11,.08);color:var(--accent-gold);border:1px dashed rgba(245,158,11,.3);border-radius:6px;cursor:pointer;margin-top:2px">
+        ＋ 新增菜色
+      </button>
     </div>`;
   }
   grid.innerHTML=html;
 }
 
-function updateWeekPlanType(key){
-  const t=document.getElementById('wt-'+key).value;
-  document.getElementById('wr-'+key).style.display=t==='recipe'?'':'none';
-  document.getElementById('wc-'+key).style.display=t==='custom'?'':'none';
-  saveWeekPlan(key);
+function addWeekDish(key){
+  if(!S.staffMeal.weekPlan) S.staffMeal.weekPlan={};
+  if(!Array.isArray(S.staffMeal.weekPlan[key])) S.staffMeal.weekPlan[key]=[];
+  const srs=S.staffMeal.staffRecipes||[];
+  S.staffMeal.weekPlan[key].push({ id:uid(), type:'recipe', recipeId:srs.length?srs[0].id:'', customName:'' });
+  persistStaff();
+  renderWeekPlan();
 }
 
-function saveWeekPlan(key){
-  const type=document.getElementById('wt-'+key).value;
-  const recipeEl=document.getElementById('wrv-'+key);
-  const customEl=document.getElementById('wcv-'+key);
-  const noteEl=document.getElementById('wn-'+key);
-  if(!S.staffMeal.weekPlan) S.staffMeal.weekPlan={};
-  S.staffMeal.weekPlan[key]={
-    type,
-    recipeId:recipeEl?recipeEl.value:'',
-    customName:customEl?customEl.value.trim():'',
-    note:noteEl?noteEl.value.trim():''
-  };
+function removeWeekDish(key, did){
+  if(!S.staffMeal.weekPlan||!Array.isArray(S.staffMeal.weekPlan[key])) return;
+  S.staffMeal.weekPlan[key]=S.staffMeal.weekPlan[key].filter(d=>d.id!==did);
+  persistStaff();
+  renderWeekPlan();
+}
+
+function toggleWeekDishType(key, did){
+  const t=document.getElementById(`wdt-${key}-${did}`).value;
+  document.getElementById(`wdr-${key}-${did}`).style.display=t==='recipe'?'':'none';
+  document.getElementById(`wdc-${key}-${did}`).style.display=t==='custom'?'':'none';
+  saveWeekDish(key,did);
+}
+
+function saveWeekDish(key, did){
+  const sm=S.staffMeal;
+  if(!sm.weekPlan||!Array.isArray(sm.weekPlan[key])) return;
+  const dish=sm.weekPlan[key].find(d=>d.id===did);
+  if(!dish) return;
+  const typeEl=document.getElementById(`wdt-${key}-${did}`);
+  const recEl=document.getElementById(`wdr-${key}-${did}`);
+  const cusEl=document.getElementById(`wdc-${key}-${did}`);
+  if(typeEl) dish.type=typeEl.value;
+  if(recEl) dish.recipeId=recEl.value;
+  if(cusEl) dish.customName=cusEl.value.trim();
   persistStaff();
 }
 
