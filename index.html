@@ -1597,6 +1597,29 @@ textarea.form-input{resize:vertical;min-height:76px}
           <button class="btn btn-secondary" onclick="document.getElementById('import-all-file').click()">⬆ 匯入備份</button>
         </div>
       </div>
+      <div class="settings-section">
+        <div class="settings-section-title">☁ 手機 ↔ 電腦 同步</div>
+        <p style="font-size:11px;color:var(--text-secondary);margin-bottom:16px">上傳產生同步碼 → 在其他裝置輸入同步碼下載。同步碼有效 30 天。</p>
+        <div style="margin-bottom:20px">
+          <div style="font-size:13px;font-weight:600;color:var(--text-primary);margin-bottom:8px">📤 上傳此裝置資料</div>
+          <button class="btn btn-teal" id="sync-upload-btn" onclick="uploadSync()">⬆ 上傳並產生同步碼</button>
+          <div id="sync-code-box" style="display:none;margin-top:12px;padding:16px;background:rgba(13,148,136,.1);border:1px solid rgba(13,148,136,.35);border-radius:12px">
+            <div style="font-size:11px;color:var(--text-secondary);margin-bottom:8px">同步碼（請複製到其他裝置）</div>
+            <div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap">
+              <code id="sync-code-out" style="font-size:15px;font-weight:700;color:var(--accent-teal);letter-spacing:1.5px;flex:1;word-break:break-all;font-family:monospace"></code>
+              <button class="btn btn-secondary btn-sm" onclick="copySyncCode()">📋 複製</button>
+            </div>
+          </div>
+        </div>
+        <div>
+          <div style="font-size:13px;font-weight:600;color:var(--text-primary);margin-bottom:8px">📥 在此裝置下載資料</div>
+          <div style="display:flex;gap:8px">
+            <input type="text" class="form-input" id="sync-code-in" placeholder="貼上同步碼…" style="flex:1;font-family:monospace">
+            <button class="btn btn-primary" id="sync-download-btn" onclick="downloadSync()">⬇ 下載</button>
+          </div>
+          <p style="font-size:10px;color:var(--text-muted);margin-top:6px">⚠ 下載會覆蓋此裝置現有資料</p>
+        </div>
+      </div>
       <button class="btn btn-primary" style="width:100%" onclick="saveAppSettings()">💾 儲存設定</button>
     </div>
   </div>
@@ -2840,6 +2863,67 @@ function importAllData(input){
     }catch{ toast('無法解析 JSON','error'); }
   };
   reader.readAsText(f);
+}
+
+// ── 雲端同步 (jsonblob.com) ──
+function _syncPayload(){
+  return {recipes:S.recipes,inventory:S.inventory,suppliers:S.suppliers,
+    appSettings:S.appSettings,costData:S.costData,cats:S.cats,staffMeal:S.staffMeal,
+    exported:new Date().toISOString(),version:'2.3.0'};
+}
+function _applySync(d){
+  if(!d.recipes||!Array.isArray(d.recipes)) throw new Error('格式不正確');
+  S.recipes=d.recipes; persist();
+  if(d.inventory&&Array.isArray(d.inventory)){ S.inventory=d.inventory; persistInv(); }
+  if(d.suppliers&&Array.isArray(d.suppliers)){ S.suppliers=d.suppliers; persistSup(); }
+  if(d.appSettings){ S.appSettings=Object.assign(S.appSettings,d.appSettings); persistSettings(); }
+  if(d.costData){ S.costData=d.costData; persistCost(); }
+  if(d.cats&&Array.isArray(d.cats)){ S.cats=d.cats; persistCats(); }
+  if(d.staffMeal){ S.staffMeal=Object.assign({staffCount:5,weekPlan:{},todayLogs:[],staffRecipes:[]},d.staffMeal); persistStaff(); }
+  syncSelects(); renderDash(); updateSidebarBranding(); checkNotifications();
+}
+async function uploadSync(){
+  const btn=document.getElementById('sync-upload-btn');
+  btn.disabled=true; btn.textContent='上傳中…';
+  try{
+    const res=await fetch('https://jsonblob.com/api/jsonBlob',{
+      method:'POST',
+      headers:{'Content-Type':'application/json','Accept':'application/json'},
+      body:JSON.stringify(_syncPayload())
+    });
+    if(!res.ok) throw new Error('伺服器錯誤 '+res.status);
+    const loc=res.headers.get('Location')||'';
+    const code=loc.split('/').pop();
+    if(!code) throw new Error('未取得同步碼');
+    document.getElementById('sync-code-out').textContent=code;
+    document.getElementById('sync-code-box').style.display='block';
+    toast('同步碼產生成功！','success');
+  }catch(e){ toast('上傳失敗：'+e.message,'error'); }
+  btn.disabled=false; btn.textContent='⬆ 上傳並產生同步碼';
+}
+async function downloadSync(){
+  const code=document.getElementById('sync-code-in').value.trim();
+  if(!code){ toast('請輸入同步碼','error'); return; }
+  const btn=document.getElementById('sync-download-btn');
+  btn.disabled=true; btn.textContent='下載中…';
+  try{
+    const res=await fetch(`https://jsonblob.com/api/jsonBlob/${code}`,{
+      headers:{'Accept':'application/json'}
+    });
+    if(res.status===404) throw new Error('同步碼不存在或已過期');
+    if(!res.ok) throw new Error('伺服器錯誤 '+res.status);
+    const d=await res.json();
+    _applySync(d);
+    toast('資料同步成功 ✓','success');
+  }catch(e){ toast('下載失敗：'+e.message,'error'); }
+  btn.disabled=false; btn.textContent='⬇ 下載';
+}
+function copySyncCode(){
+  const code=document.getElementById('sync-code-out').textContent;
+  if(!code) return;
+  navigator.clipboard.writeText(code)
+    .then(()=>toast('同步碼已複製 ✓','success'))
+    .catch(()=>{ prompt('請手動複製同步碼：',code); });
 }
 function importData(input){
   const f=input.files[0]; if(!f) return;
