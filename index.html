@@ -495,6 +495,114 @@ textarea.form-input{resize:vertical;min-height:76px}
   body{background:#fff;color:#000}
   *{box-shadow:none!important}
 }
+
+/* ── FAVORITE BUTTON ── */
+.fav-btn{background:transparent;border:none;cursor:pointer;font-size:18px;
+  padding:2px 4px;line-height:1;transition:transform .2s;flex-shrink:0;margin-left:auto}
+.fav-btn:hover{transform:scale(1.25)}
+.fav-btn.active{filter:drop-shadow(0 0 4px rgba(239,68,68,.6))}
+
+/* ── ALLERGEN BADGES ── */
+.allergen-row{display:flex;flex-wrap:wrap;gap:4px;margin-top:7px}
+.allergen-chip{padding:1px 6px;border-radius:20px;font-size:9px;font-weight:700;
+  background:rgba(239,68,68,.14);color:var(--accent-red);border:1px solid rgba(239,68,68,.2)}
+.allergen-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:6px;margin-top:4px}
+.allergen-check-label{display:flex;align-items:center;gap:5px;cursor:pointer;
+  font-size:11px;color:var(--text-secondary);padding:5px 7px;border-radius:6px;
+  border:1px solid var(--border);transition:var(--tr)}
+.allergen-check-label:hover{background:var(--bg-glass);color:var(--text-primary)}
+.allergen-check-label input[type=checkbox]{accent-color:var(--accent-red);width:13px;height:13px}
+
+/* ── TAB BAR (tools page) ── */
+.tab-bar{display:flex;gap:6px;margin-bottom:18px;background:var(--bg-glass);
+  border:1px solid var(--border);border-radius:10px;padding:4px}
+.tab-btn{flex:1;padding:9px 12px;border:none;border-radius:7px;cursor:pointer;
+  font-size:13px;font-weight:600;color:var(--text-secondary);background:transparent;
+  transition:var(--tr);text-align:center}
+.tab-btn.active{background:linear-gradient(135deg,rgba(245,158,11,.2),rgba(245,158,11,.08));
+  color:var(--accent-gold);box-shadow:0 2px 8px rgba(0,0,0,.2)}
+.tab-btn:hover:not(.active){background:rgba(255,255,255,.05);color:var(--text-primary)}
+.tab-pane{display:none}
+.tab-pane.active{display:block;animation:fadeIn .2s ease}
+
+/* ── UNIT CONVERTER ── */
+.conv-tabs{display:flex;gap:6px;margin-bottom:14px}
+.conv-tab{padding:6px 14px;border:1px solid var(--border);border-radius:20px;
+  cursor:pointer;font-size:11px;font-weight:600;color:var(--text-secondary);
+  background:transparent;transition:var(--tr)}
+.conv-tab.active{background:var(--accent-teal);color:#fff;border-color:var(--accent-teal)}
+.conv-row{display:grid;grid-template-columns:1fr auto 1fr;gap:10px;align-items:center;margin-bottom:8px}
+.conv-arrow{font-size:18px;color:var(--text-muted);text-align:center;user-select:none}
+.conv-result-box{background:linear-gradient(135deg,rgba(13,148,136,.08),rgba(13,148,136,.03));
+  border:1px solid rgba(13,148,136,.2);border-radius:10px;padding:14px;margin-top:12px}
+.conv-result-list{display:flex;flex-direction:column;gap:6px}
+.conv-result-item{display:flex;justify-content:space-between;align-items:center;
+  padding:5px 0;border-bottom:1px solid rgba(255,255,255,.04)}
+.conv-result-item:last-child{border-bottom:none}
+.conv-result-val{font-size:14px;font-weight:700;color:var(--accent-teal-l)}
+.conv-result-unit{font-size:11px;color:var(--text-muted)}
+
+/* ── KITCHEN TIMER ── */
+.timer-display{text-align:center;padding:28px 20px;margin-bottom:16px}
+.timer-clock{font-size:64px;font-weight:900;font-variant-numeric:tabular-nums;
+  color:var(--accent-gold);letter-spacing:2px;line-height:1;
+  text-shadow:0 0 30px rgba(245,158,11,.3)}
+.timer-label{font-size:12px;color:var(--text-muted);margin-top:6px}
+.timer-presets{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-bottom:14px}
+.timer-preset{padding:10px;text-align:center;border:1px solid var(--border);
+  border-radius:8px;cursor:pointer;font-size:13px;font-weight:600;
+  color:var(--text-secondary);background:transparent;transition:var(--tr)}
+.timer-preset:hover{background:rgba(245,158,11,.1);border-color:rgba(245,158,11,.3);color:var(--accent-gold)}
+.timer-controls{display:flex;gap:8px}
+.timer-controls .btn{flex:1;justify-content:center}
+
+/* ── COST PAGE ── */
+.cost-grid{display:grid;grid-template-columns:1fr 1.4fr;gap:18px}
+.cost-ing-row{display:flex;align-items:center;gap:8px;padding:7px 0;
+  border-bottom:1px solid rgba(255,255,255,.04)}
+.cost-ing-row:last-child{border-bottom:none}
+.cost-ing-name{flex:1;font-size:12px;color:var(--text-secondary);min-width:0}
+.cost-ing-qty{font-size:11px;color:var(--text-muted);width:70px;text-align:right;flex-shrink:0}
+.cost-ing-input{width:80px;padding:5px 8px;font-size:12px;text-align:right;flex-shrink:0}
+.cost-summary-card{background:linear-gradient(135deg,rgba(245,158,11,.1),rgba(13,148,136,.06));
+  border:1px solid rgba(245,158,11,.2);border-radius:12px;padding:18px;margin-bottom:14px}
+.cost-metric{display:flex;justify-content:space-between;align-items:center;
+  padding:7px 0;border-bottom:1px solid rgba(255,255,255,.06)}
+.cost-metric:last-child{border-bottom:none}
+.cost-metric-label{font-size:11px;color:var(--text-secondary)}
+.cost-metric-value{font-size:15px;font-weight:700;color:var(--accent-gold)}
+.cost-metric-value.green{color:var(--accent-green)}
+.cost-metric-value.teal{color:var(--accent-teal-l)}
+
+/* ── SHOPPING PAGE ── */
+.shop-recipe-item{display:flex;align-items:center;gap:10px;padding:10px 14px;
+  background:var(--bg-card);border:1px solid var(--border);border-radius:var(--r);
+  margin-bottom:7px;transition:var(--tr)}
+.shop-recipe-item.selected{border-color:rgba(245,158,11,.3);background:rgba(245,158,11,.04)}
+.shop-check{width:18px;height:18px;accent-color:var(--accent-gold);cursor:pointer;flex-shrink:0}
+.shop-recipe-name{flex:1;font-size:13px;font-weight:600;color:var(--text-primary)}
+.shop-mult-input{width:58px;padding:5px 8px;font-size:13px;text-align:center;flex-shrink:0}
+.shop-list-item{display:flex;align-items:center;gap:9px;padding:9px 12px;
+  border-bottom:1px solid rgba(255,255,255,.04);cursor:pointer}
+.shop-list-item:last-child{border-bottom:none}
+.shop-list-item.checked .shop-item-name{text-decoration:line-through;color:var(--text-muted)}
+.shop-item-check{font-size:16px;flex-shrink:0}
+.shop-item-name{flex:1;font-size:13px;color:var(--text-primary)}
+.shop-item-qty{font-size:13px;font-weight:700;color:var(--accent-gold);flex-shrink:0}
+
+/* ── RESPONSIVE: new pages ── */
+@media(max-width:768px){
+  .cost-grid{grid-template-columns:1fr!important}
+  .allergen-grid{grid-template-columns:repeat(2,1fr)!important}
+  .timer-clock{font-size:52px}
+  .conv-row{grid-template-columns:1fr auto 1fr}
+  .tab-btn{font-size:12px;padding:8px 6px}
+}
+@media(max-width:430px){
+  .timer-clock{font-size:44px}
+  .allergen-grid{grid-template-columns:repeat(2,1fr)!important}
+  .tab-btn{font-size:11px}
+}
 </style>
 </head>
 <body>
@@ -524,6 +632,15 @@ textarea.form-input{resize:vertical;min-height:76px}
       <span class="nav-icon">📋</span>SOP 管理
     </div>
     <div class="nav-label">工具</div>
+    <div class="nav-item" onclick="go('cost')">
+      <span class="nav-icon">💰</span>成本計算
+    </div>
+    <div class="nav-item" onclick="go('shopping')">
+      <span class="nav-icon">🛒</span>採購清單
+    </div>
+    <div class="nav-item" onclick="go('tools')">
+      <span class="nav-icon">🔧</span>工具箱
+    </div>
     <div class="nav-item" onclick="go('print')">
       <span class="nav-icon">🖨️</span>列印 / 匯出
     </div>
@@ -557,8 +674,8 @@ textarea.form-input{resize:vertical;min-height:76px}
     <button class="bn-item" id="bn-sop" onclick="go('sop')">
       <span class="bn-icon">📋</span><span>SOP</span>
     </button>
-    <button class="bn-item" id="bn-print" onclick="go('print')">
-      <span class="bn-icon">🖨️</span><span>列印</span>
+    <button class="bn-item" id="bn-tools" onclick="go('tools')">
+      <span class="bn-icon">🔧</span><span>工具</span>
     </button>
   </div>
 </nav>
@@ -652,6 +769,7 @@ textarea.form-input{resize:vertical;min-height:76px}
       <select style="padding:9px 12px;min-width:110px" id="r-cat-filter" onchange="filterR()">
         <option value="">全部分類</option>
       </select>
+      <button class="btn btn-secondary" id="fav-filter-btn" onclick="toggleFavFilter()">🤍 收藏</button>
       <button class="btn btn-primary" onclick="openRM()">＋ 新增食譜</button>
     </div>
     <div class="recipe-grid" id="recipe-grid"></div>
@@ -795,6 +913,237 @@ textarea.form-input{resize:vertical;min-height:76px}
       </div>
     </div>
   </div>
+
+  <!-- ── COST ── -->
+  <div class="page-content" id="page-cost">
+    <div class="cost-grid">
+      <div>
+        <div class="section-header"><div class="section-title">成本設定</div></div>
+        <div class="card" style="margin-bottom:14px">
+          <div class="card-body">
+            <div class="form-group">
+              <label class="form-label">選擇食譜</label>
+              <select class="form-input" id="cost-select" onchange="loadCost()">
+                <option value="">— 選擇食譜 —</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label class="form-label">目標食材成本率 (%)</label>
+              <input type="number" class="form-input" id="cost-ratio" value="35" min="1" max="100" step="1" oninput="calcCostSummary()">
+            </div>
+            <div class="form-group">
+              <label class="form-label">計算倍數</label>
+              <div class="mult-btns" id="cost-mult-btns" style="grid-template-columns:repeat(4,1fr)">
+                <div class="mult-btn active" onclick="setCostMult(this,1)">1×</div>
+                <div class="mult-btn" onclick="setCostMult(this,2)">2×</div>
+                <div class="mult-btn" onclick="setCostMult(this,3)">3×</div>
+                <div class="mult-btn" onclick="setCostMult(this,5)">5×</div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="section-header"><div class="section-title">食材單價 (NT$)</div></div>
+        <div class="card">
+          <div class="card-body" id="cost-ing-list">
+            <div class="empty" style="padding:24px"><div class="ei">💰</div><p>請選擇食譜</p></div>
+          </div>
+        </div>
+      </div>
+      <div>
+        <div class="section-header"><div class="section-title">成本分析</div></div>
+        <div id="cost-summary">
+          <div class="empty" style="padding:48px"><div class="ei">💰</div><h3>等待計算</h3><p>請選擇食譜並輸入食材單價</p></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── SHOPPING ── -->
+  <div class="page-content" id="page-shopping">
+    <div class="two-col">
+      <div>
+        <div class="section-header">
+          <div class="section-title">選擇食譜</div>
+          <div style="display:flex;gap:6px">
+            <button class="btn btn-secondary btn-sm" onclick="shopSelectAll(true)">全選</button>
+            <button class="btn btn-secondary btn-sm" onclick="shopSelectAll(false)">清除</button>
+          </div>
+        </div>
+        <div id="shop-recipe-list">
+          <div class="empty" style="padding:24px"><div class="ei">🛒</div><p>尚無食譜</p></div>
+        </div>
+        <div style="margin-top:12px">
+          <button class="btn btn-primary" style="width:100%" onclick="genShoppingList()">🛒 產生採購清單</button>
+        </div>
+      </div>
+      <div>
+        <div class="section-header">
+          <div class="section-title">採購清單</div>
+          <div style="display:flex;gap:6px">
+            <button class="btn btn-secondary btn-sm" onclick="copyShopList()">📋 複製</button>
+            <button class="btn btn-secondary btn-sm" onclick="clearShopChecks()">↺ 重置</button>
+          </div>
+        </div>
+        <div class="card">
+          <div id="shop-list-result">
+            <div class="empty" style="padding:40px"><div class="ei">🛒</div><h3>尚無清單</h3><p>選擇食譜後點擊「產生採購清單」</p></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── TOOLS ── -->
+  <div class="page-content" id="page-tools">
+    <div class="tab-bar">
+      <button class="tab-btn active" id="tool-tab-converter" onclick="switchToolTab('converter')">⚖ 單位換算</button>
+      <button class="tab-btn" id="tool-tab-timer" onclick="switchToolTab('timer')">⏱ 計時器</button>
+    </div>
+
+    <!-- Unit Converter -->
+    <div class="tab-pane active" id="tool-pane-converter">
+      <div class="conv-tabs">
+        <button class="conv-tab active" id="ctab-weight" onclick="switchConvTab('weight')">重量</button>
+        <button class="conv-tab" id="ctab-volume" onclick="switchConvTab('volume')">容積</button>
+        <button class="conv-tab" id="ctab-temp" onclick="switchConvTab('temp')">溫度</button>
+      </div>
+      <div class="two-col">
+        <div>
+          <!-- Weight -->
+          <div id="conv-weight" class="card">
+            <div class="card-header">⚖ 重量換算</div>
+            <div class="card-body">
+              <div class="form-group">
+                <label class="form-label">輸入數值</label>
+                <div class="conv-row">
+                  <input type="number" class="form-input" id="conv-w-val" placeholder="數值" oninput="convertWeight()">
+                  <span class="conv-arrow">→</span>
+                  <select class="form-input" id="conv-w-from" onchange="convertWeight()">
+                    <option value="g">克 (g)</option>
+                    <option value="kg">公斤 (kg)</option>
+                    <option value="lb">磅 (lb)</option>
+                    <option value="oz">盎司 (oz)</option>
+                    <option value="斤">斤 (600g)</option>
+                    <option value="兩">兩 (37.5g)</option>
+                  </select>
+                </div>
+              </div>
+              <div class="conv-result-box" id="conv-w-result">
+                <div class="conv-result-list">
+                  <div style="font-size:11px;color:var(--text-muted);text-align:center">輸入數值後顯示換算結果</div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- Volume -->
+          <div id="conv-volume" class="card" style="display:none;margin-top:14px">
+            <div class="card-header">🥤 容積換算</div>
+            <div class="card-body">
+              <div class="form-group">
+                <label class="form-label">輸入數值</label>
+                <div class="conv-row">
+                  <input type="number" class="form-input" id="conv-v-val" placeholder="數值" oninput="convertVolume()">
+                  <span class="conv-arrow">→</span>
+                  <select class="form-input" id="conv-v-from" onchange="convertVolume()">
+                    <option value="ml">毫升 (ml)</option>
+                    <option value="L">公升 (L)</option>
+                    <option value="cup">杯 (240ml)</option>
+                    <option value="tbsp">大匙 (15ml)</option>
+                    <option value="tsp">小匙 (5ml)</option>
+                    <option value="cc">cc (ml)</option>
+                  </select>
+                </div>
+              </div>
+              <div class="conv-result-box" id="conv-v-result">
+                <div class="conv-result-list">
+                  <div style="font-size:11px;color:var(--text-muted);text-align:center">輸入數值後顯示換算結果</div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- Temperature -->
+          <div id="conv-temp" class="card" style="display:none;margin-top:14px">
+            <div class="card-header">🌡 溫度換算</div>
+            <div class="card-body">
+              <div class="form-group">
+                <label class="form-label">輸入溫度</label>
+                <div class="conv-row">
+                  <input type="number" class="form-input" id="conv-t-val" placeholder="溫度" oninput="convertTemp()">
+                  <span class="conv-arrow">→</span>
+                  <select class="form-input" id="conv-t-from" onchange="convertTemp()">
+                    <option value="C">°C 攝氏</option>
+                    <option value="F">°F 華氏</option>
+                    <option value="K">K 克耳文</option>
+                  </select>
+                </div>
+              </div>
+              <div class="conv-result-box" id="conv-t-result">
+                <div class="conv-result-list">
+                  <div style="font-size:11px;color:var(--text-muted);text-align:center">輸入溫度後顯示換算結果</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div>
+          <div class="card">
+            <div class="card-header">📏 廚房常用換算表</div>
+            <div class="card-body" id="ref-table-body">
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Kitchen Timer -->
+    <div class="tab-pane" id="tool-pane-timer">
+      <div class="two-col">
+        <div>
+          <div class="card">
+            <div class="card-body">
+              <div class="timer-display">
+                <div class="timer-clock" id="timer-clock">00:00</div>
+                <div class="timer-label" id="timer-label">計時器就緒</div>
+              </div>
+              <div style="font-size:11px;color:var(--text-muted);font-weight:700;text-transform:uppercase;letter-spacing:.7px;margin-bottom:8px">快速設定</div>
+              <div class="timer-presets">
+                <button class="timer-preset" onclick="setTimer(60)">1 分鐘</button>
+                <button class="timer-preset" onclick="setTimer(180)">3 分鐘</button>
+                <button class="timer-preset" onclick="setTimer(300)">5 分鐘</button>
+                <button class="timer-preset" onclick="setTimer(600)">10 分鐘</button>
+                <button class="timer-preset" onclick="setTimer(900)">15 分鐘</button>
+                <button class="timer-preset" onclick="setTimer(1800)">30 分鐘</button>
+              </div>
+              <div class="form-group" style="margin-bottom:14px">
+                <label class="form-label">自訂時間</label>
+                <div style="display:flex;gap:8px;align-items:center">
+                  <input type="number" class="form-input" id="timer-min" placeholder="分" min="0" max="99" style="flex:1">
+                  <span style="color:var(--text-muted);font-weight:700">:</span>
+                  <input type="number" class="form-input" id="timer-sec-inp" placeholder="秒" min="0" max="59" style="flex:1">
+                  <button class="btn btn-secondary" onclick="setCustomTimer()">設定</button>
+                </div>
+              </div>
+              <div class="timer-controls">
+                <button class="btn btn-primary" id="timer-start-btn" onclick="toggleTimer()">▶ 開始</button>
+                <button class="btn btn-secondary" onclick="resetTimer()">↺ 重置</button>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div>
+          <div class="card">
+            <div class="card-header">⏰ 計時紀錄</div>
+            <div class="card-body">
+              <div id="timer-log">
+                <div class="empty" style="padding:30px"><div class="ei" style="font-size:32px">⏰</div><p>計時完成後顯示紀錄</p></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
 </main>
 
 <!-- ════ MODALS ════ -->
@@ -804,6 +1153,7 @@ textarea.form-input{resize:vertical;min-height:76px}
   <div class="modal">
     <div class="modal-header">
       <div class="modal-title" id="rm-title">新增食譜</div>
+      <button class="fav-btn" id="rm-fav-btn" onclick="toggleRmFav()" title="收藏">🤍</button>
       <button class="modal-close" onclick="closeM('modal-recipe')">✕</button>
     </div>
     <div class="modal-body">
@@ -835,6 +1185,19 @@ textarea.form-input{resize:vertical;min-height:76px}
       <div class="form-group">
         <label class="form-label">備註說明</label>
         <textarea class="form-input" id="rm-notes" placeholder="食譜特別說明、注意事項..."></textarea>
+      </div>
+      <div class="form-group">
+        <label class="form-label">過敏原標記</label>
+        <div class="allergen-grid" id="rm-allergens">
+          <label class="allergen-check-label"><input type="checkbox" value="麩質"> 🌾 麩質</label>
+          <label class="allergen-check-label"><input type="checkbox" value="乳製品"> 🥛 乳製品</label>
+          <label class="allergen-check-label"><input type="checkbox" value="雞蛋"> 🥚 雞蛋</label>
+          <label class="allergen-check-label"><input type="checkbox" value="花生"> 🥜 花生</label>
+          <label class="allergen-check-label"><input type="checkbox" value="堅果"> 🌰 堅果</label>
+          <label class="allergen-check-label"><input type="checkbox" value="海鮮"> 🦐 海鮮</label>
+          <label class="allergen-check-label"><input type="checkbox" value="黃豆"> 🫘 黃豆</label>
+          <label class="allergen-check-label"><input type="checkbox" value="芝麻"> 🌿 芝麻</label>
+        </div>
       </div>
       <div class="form-group">
         <label class="form-label">食材清單</label>
@@ -937,16 +1300,39 @@ const S = {
   curPage:'dashboard',
   editRid:null,
   editSid:null,
+  // favorites filter
+  showFavOnly:false,
+  // cost page
+  costRid:null,
+  costMult:1,
+  costData:{}, // {rid:{ratio:35, costs:[...]}}
+  // shopping
+  shopSel:{}, // {rid: multiplier}
+  shopChecked:{}, // {composite_key: true}
+  shopList:[], // [{name,qty,unit}]
+  // tools
+  toolTab:'converter',
+  convTab:'weight',
+  rmFav:false, // temp flag for modal
+  // timer
+  timerTotal:0,
+  timerLeft:0,
+  timerRunning:false,
+  timerIv:null,
+  timerLog:[],
 };
 
 // ══════════════════════════════════════
 //  STORAGE
 // ══════════════════════════════════════
 function persist(){ localStorage.setItem('ksop_v2', JSON.stringify({r:S.recipes})); }
+function persistCost(){ localStorage.setItem('ksop_cost', JSON.stringify(S.costData)); }
 function hydrate(){
   const raw = localStorage.getItem('ksop_v2');
   if(raw){ try{ S.recipes = JSON.parse(raw).r||[]; }catch{} }
   if(!S.recipes.length){ S.recipes = demo(); persist(); }
+  const costRaw = localStorage.getItem('ksop_cost');
+  if(costRaw){ try{ S.costData = JSON.parse(costRaw)||{}; }catch{} }
 }
 
 function demo(){
@@ -999,8 +1385,8 @@ function demo(){
 // ══════════════════════════════════════
 //  NAVIGATION
 // ══════════════════════════════════════
-const PAGE_TITLES = {dashboard:'儀表板',recipes:'食譜庫',calculator:'倍數計算',sop:'SOP 管理',print:'列印 / 匯出'};
-const MAIN_BTN = {dashboard:'＋ 新增食譜',recipes:'＋ 新增食譜',calculator:'🔄 切換食譜',sop:'＋ 新增步驟',print:'🖨 列印'};
+const PAGE_TITLES = {dashboard:'儀表板',recipes:'食譜庫',calculator:'倍數計算',sop:'SOP 管理',print:'列印 / 匯出',cost:'成本計算',shopping:'採購清單',tools:'工具箱'};
+const MAIN_BTN = {dashboard:'＋ 新增食譜',recipes:'＋ 新增食譜',calculator:'🔄 切換食譜',sop:'＋ 新增步驟',print:'🖨 列印',cost:'💰 更新成本',shopping:'🛒 產生清單',tools:''};
 
 function go(page){
   S.curPage = page;
@@ -1025,6 +1411,9 @@ function go(page){
   if(page==='calculator'){ syncSelects(); if(S.calcRid){document.getElementById('calc-select').value=S.calcRid; calcUpdate();} }
   if(page==='sop'){ syncSelects(); if(S.sopRid){document.getElementById('sop-select').value=S.sopRid; loadSOP();} }
   if(page==='print') syncSelects();
+  if(page==='cost'){ syncSelects(); if(S.costRid){document.getElementById('cost-select').value=S.costRid; loadCost();} }
+  if(page==='shopping'){ renderShopRecipeList(); }
+  if(page==='tools'){ switchToolTab(S.toolTab); }
 }
 
 function toggleSidebar(){
@@ -1043,10 +1432,9 @@ function mainAction(){
   if(p==='dashboard'||p==='recipes') openRM();
   else if(p==='sop') openSM();
   else if(p==='print') doPrint();
-  else if(p==='calculator'){
-    document.getElementById('calc-select').value='';
-    S.calcRid=null; calcUpdate();
-  }
+  else if(p==='calculator'){ document.getElementById('calc-select').value=''; S.calcRid=null; calcUpdate(); }
+  else if(p==='cost') calcCostSummary();
+  else if(p==='shopping') genShoppingList();
 }
 
 // ══════════════════════════════════════
@@ -1114,7 +1502,17 @@ function qcUpdate(){
 function filterR(){
   const q=(document.getElementById('r-search').value||'').toLowerCase();
   const cat=document.getElementById('r-cat-filter').value;
-  renderGrid(S.recipes.filter(r=>(!q||r.name.toLowerCase().includes(q))&&(!cat||r.category===cat)));
+  renderGrid(S.recipes.filter(r=>
+    (!q||r.name.toLowerCase().includes(q))&&
+    (!cat||r.category===cat)&&
+    (!S.showFavOnly||r.favorite)
+  ));
+}
+function toggleFavFilter(){
+  S.showFavOnly=!S.showFavOnly;
+  const btn=document.getElementById('fav-filter-btn');
+  if(btn){ btn.textContent=S.showFavOnly?'❤️ 收藏':'🤍 收藏'; btn.style.color=S.showFavOnly?'var(--accent-red)':''; }
+  filterR();
 }
 
 function renderGrid(arr){
@@ -1131,10 +1529,12 @@ function renderGrid(arr){
     <div class="recipe-card">
       <div class="rc-head">
         <div class="rc-emoji">${r.emoji||'🍽'}</div>
-        <div>
+        <div style="flex:1;min-width:0">
           <div class="rc-name">${r.name}</div>
           <span class="rc-tag">${r.category}</span>
+          ${(r.allergens||[]).length?`<div class="allergen-row">${r.allergens.map(a=>`<span class="allergen-chip">${a}</span>`).join('')}</div>`:''}
         </div>
+        <button class="fav-btn${r.favorite?' active':''}" onclick="toggleFav('${r.id}')">${r.favorite?'❤️':'🤍'}</button>
       </div>
       <div class="rc-body">
         <div class="rc-info-row">
@@ -1147,6 +1547,7 @@ function renderGrid(arr){
       <div class="rc-foot">
         <button class="btn btn-secondary btn-sm" style="flex:1" onclick="toCalc('${r.id}')">🧮 計算</button>
         <button class="btn btn-secondary btn-sm" style="flex:1" onclick="toSOP('${r.id}')">📋 SOP</button>
+        <button class="btn btn-secondary btn-sm" onclick="toCost('${r.id}')">💰</button>
         <button class="btn btn-secondary btn-sm" onclick="editR('${r.id}')">✏</button>
         <button class="btn btn-danger btn-sm" onclick="delR('${r.id}')">🗑</button>
       </div>
@@ -1155,6 +1556,7 @@ function renderGrid(arr){
 
 function toCalc(id){ S.calcRid=id; go('calculator'); }
 function toSOP(id){ S.sopRid=id; go('sop'); }
+function toCost(id){ S.costRid=id; go('cost'); }
 
 // ══════════════════════════════════════
 //  RECIPE MODAL
@@ -1171,8 +1573,27 @@ function openRM(id){
   document.getElementById('rm-serving').value=r?r.serving:'';
   document.getElementById('rm-time').value=r?r.time:'';
   document.getElementById('rm-notes').value=r?r.notes:'';
+  // Favorite
+  S.rmFav=r?!!r.favorite:false;
+  const fb=document.getElementById('rm-fav-btn');
+  fb.textContent=S.rmFav?'❤️':'🤍'; fb.classList.toggle('active',S.rmFav);
+  // Allergens
+  const allergens=r?(r.allergens||[]):[];
+  document.querySelectorAll('#rm-allergens input[type=checkbox]').forEach(cb=>{
+    cb.checked=allergens.includes(cb.value);
+  });
   renderIngRows(r?r.ingredients:[{name:'',qty:'',unit:'g'}]);
   showM('modal-recipe');
+}
+function toggleRmFav(){
+  S.rmFav=!S.rmFav;
+  const fb=document.getElementById('rm-fav-btn');
+  fb.textContent=S.rmFav?'❤️':'🤍'; fb.classList.toggle('active',S.rmFav);
+}
+function toggleFav(id){
+  const r=S.recipes.find(x=>x.id===id);
+  if(r){ r.favorite=!r.favorite; persist(); filterR();
+    toast(r.favorite?'已加入收藏':'已移除收藏',r.favorite?'success':'info'); }
 }
 function editR(id){ openRM(id); }
 
@@ -1207,11 +1628,13 @@ function saveRecipe(){
     return {name:ins[0].value.trim(), qty:parseFloat(ins[1].value)||0, unit:ins[2].value.trim()||'g'};
   }).filter(i=>i.name);
   const cat=document.getElementById('rm-cat').value;
+  const allergens=[...document.querySelectorAll('#rm-allergens input[type=checkbox]:checked')].map(cb=>cb.value);
   const data={
     name, category:cat, serving:document.getElementById('rm-serving').value,
     time:document.getElementById('rm-time').value,
     notes:document.getElementById('rm-notes').value,
     emoji:EMOJI_MAP[cat]||'🍽', ingredients,
+    favorite:S.rmFav, allergens,
   };
   if(S.editRid){
     const idx=S.recipes.findIndex(r=>r.id===S.editRid);
@@ -1570,10 +1993,10 @@ function toast(msg,type='info'){
 }
 
 function syncSelects(){
-  ['qc-select','calc-select','sop-select','print-select'].forEach(id=>{
+  ['qc-select','calc-select','sop-select','print-select','cost-select'].forEach(id=>{
     const el=document.getElementById(id); if(!el) return;
     const cur=el.value;
-    el.innerHTML='<option value="">— 選擇食譜 —</option>'+S.recipes.map(r=>`<option value="${r.id}">${r.name}</option>`).join('');
+    el.innerHTML='<option value="">— 選擇食譜 —</option>'+S.recipes.map(r=>`<option value="${r.id}">${r.emoji||'🍽'} ${r.name}</option>`).join('');
     if(cur) el.value=cur;
   });
   updateCatFilter();
@@ -1585,11 +2008,277 @@ function r2(n){ return Math.round(n*100)/100; }
 function esc(s){ return (s||'').replace(/"/g,'&quot;'); }
 
 // ══════════════════════════════════════
+//  COST PAGE
+// ══════════════════════════════════════
+function setCostMult(el,m){
+  document.querySelectorAll('#cost-mult-btns .mult-btn').forEach(b=>b.classList.remove('active'));
+  el.classList.add('active'); S.costMult=m; calcCostSummary();
+}
+function loadCost(){
+  const id=document.getElementById('cost-select').value;
+  S.costRid=id;
+  const r=S.recipes.find(x=>x.id===id);
+  const el=document.getElementById('cost-ing-list');
+  if(!r){ el.innerHTML=`<div class="empty" style="padding:24px"><div class="ei">💰</div><p>請選擇食譜</p></div>`; calcCostSummary(); return; }
+  if(!S.costData[id]) S.costData[id]={ratio:35,costs:[]};
+  const cd=S.costData[id];
+  if(!cd.costs||cd.costs.length!==r.ingredients.length) cd.costs=(r.ingredients||[]).map((_,i)=>cd.costs&&cd.costs[i]!==undefined?cd.costs[i]:0);
+  const ratio=cd.ratio||35;
+  document.getElementById('cost-ratio').value=ratio;
+  el.innerHTML=(r.ingredients||[]).map((ing,i)=>`
+    <div class="cost-ing-row">
+      <div class="cost-ing-name">${ing.name}</div>
+      <div class="cost-ing-qty">${ing.qty} ${ing.unit}</div>
+      <div style="display:flex;align-items:center;gap:4px">
+        <span style="font-size:11px;color:var(--text-muted)">NT$</span>
+        <input type="number" class="cost-ing-input" data-idx="${i}" value="${cd.costs[i]||0}" min="0" step="1" oninput="onCostInput(this)">
+        <span style="font-size:10px;color:var(--text-muted)">/${ing.unit}</span>
+      </div>
+    </div>`).join('');
+  calcCostSummary();
+}
+function onCostInput(el){
+  const id=S.costRid; if(!id) return;
+  const r=S.recipes.find(x=>x.id===id); if(!r) return;
+  if(!S.costData[id]) S.costData[id]={ratio:35,costs:[]};
+  S.costData[id].costs[parseInt(el.dataset.idx)]=parseFloat(el.value)||0;
+  persistCost(); calcCostSummary();
+}
+function calcCostSummary(){
+  const id=S.costRid;
+  const r=S.recipes.find(x=>x.id===id);
+  const el=document.getElementById('cost-summary');
+  if(!r||!(r.ingredients||[]).length){ el.innerHTML=`<div class="empty" style="padding:48px"><div class="ei">💰</div><h3>等待計算</h3><p>請選擇食譜並輸入食材單價</p></div>`; return; }
+  const cd=S.costData[id]||{ratio:35,costs:[]};
+  const ratio=parseFloat(document.getElementById('cost-ratio').value)||35;
+  if(S.costData[id]) S.costData[id].ratio=ratio;
+  const m=S.costMult;
+  let totalCost=0;
+  const rows=(r.ingredients||[]).map((ing,i)=>{
+    const unitCost=cd.costs&&cd.costs[i]?cd.costs[i]:0;
+    const ingCost=unitCost*ing.qty*m;
+    totalCost+=ingCost;
+    return `<div class="cost-metric"><span class="cost-metric-label">${ing.name} ×${m}</span><span class="cost-metric-value" style="font-size:13px">NT$ ${r2(ingCost)}</span></div>`;
+  }).join('');
+  const suggestPrice=totalCost>0?r2(totalCost/(ratio/100)):0;
+  el.innerHTML=`
+    <div class="cost-summary-card">
+      <div style="font-size:12px;font-weight:700;color:var(--accent-gold);margin-bottom:12px">${r.emoji||'🍽'} ${r.name} × ${m}</div>
+      <div class="cost-metric"><span class="cost-metric-label">食材總成本</span><span class="cost-metric-value">NT$ ${r2(totalCost)}</span></div>
+      <div class="cost-metric"><span class="cost-metric-label">目標成本率</span><span class="cost-metric-value teal">${ratio}%</span></div>
+      <div class="cost-metric"><span class="cost-metric-label">建議售價</span><span class="cost-metric-value green">NT$ ${suggestPrice||'—'}</span></div>
+    </div>
+    <div class="section-header" style="margin-bottom:10px"><div class="section-title">食材成本明細</div></div>
+    <div class="card"><div class="card-body">${rows||'<div class="empty" style="padding:16px"><p>請輸入食材單價</p></div>'}</div></div>`;
+}
+
+// ══════════════════════════════════════
+//  SHOPPING PAGE
+// ══════════════════════════════════════
+function renderShopRecipeList(){
+  const el=document.getElementById('shop-recipe-list');
+  if(!S.recipes.length){ el.innerHTML=`<div class="empty" style="padding:24px"><div class="ei">🛒</div><p>尚無食譜</p></div>`; return; }
+  el.innerHTML=S.recipes.map(r=>{
+    const sel=S.shopSel[r.id]!==undefined;
+    const mult=S.shopSel[r.id]||1;
+    return `<div class="shop-recipe-item${sel?' selected':''}">
+      <input type="checkbox" class="shop-check" id="shc-${r.id}" ${sel?'checked':''} onchange="toggleShopRecipe('${r.id}',this.checked)">
+      <span class="shop-recipe-name">${r.emoji||'🍽'} ${r.name}</span>
+      <span style="font-size:11px;color:var(--text-muted);flex-shrink:0">×</span>
+      <input type="number" class="shop-mult-input" value="${mult}" min="0.5" step="0.5" oninput="setShopMult('${r.id}',this.value)">
+    </div>`;}).join('');
+}
+function toggleShopRecipe(id,checked){
+  const row=document.getElementById('shc-'+id).closest('.shop-recipe-item');
+  if(checked){ S.shopSel[id]=1; row.classList.add('selected'); }
+  else{ delete S.shopSel[id]; row.classList.remove('selected'); }
+}
+function setShopMult(id,v){ S.shopSel[id]=parseFloat(v)||1; }
+function shopSelectAll(sel){
+  S.recipes.forEach(r=>{ if(sel) S.shopSel[r.id]=1; else delete S.shopSel[r.id]; });
+  renderShopRecipeList();
+}
+function genShoppingList(){
+  const combined={};
+  S.recipes.filter(r=>S.shopSel[r.id]!==undefined).forEach(r=>{
+    const m=S.shopSel[r.id]||1;
+    (r.ingredients||[]).forEach(ing=>{
+      const key=`${ing.name}__${ing.unit}`;
+      if(!combined[key]) combined[key]={name:ing.name,unit:ing.unit,qty:0};
+      combined[key].qty+=ing.qty*m;
+    });
+  });
+  S.shopList=Object.values(combined).sort((a,b)=>a.name.localeCompare(b.name,'zh-TW'));
+  S.shopChecked={};
+  renderShopList();
+  if(!S.shopList.length) toast('請先勾選食譜','error');
+  else toast(`已產生 ${S.shopList.length} 項採購清單 ✓`,'success');
+}
+function renderShopList(){
+  const el=document.getElementById('shop-list-result');
+  if(!S.shopList.length){ el.innerHTML=`<div class="empty" style="padding:40px"><div class="ei">🛒</div><h3>尚無清單</h3><p>選擇食譜後點擊「產生採購清單」</p></div>`; return; }
+  el.innerHTML=`<div style="padding:4px 0">`+S.shopList.map((item,i)=>{
+    const key=`${item.name}__${item.unit}`;
+    const done=!!S.shopChecked[key];
+    return `<div class="shop-list-item${done?' checked':''}" onclick="toggleShopCheck('${key}')">
+      <span class="shop-item-check">${done?'✅':'⬜'}</span>
+      <span class="shop-item-name">${item.name}</span>
+      <span class="shop-item-qty">${r2(item.qty)} ${item.unit}</span>
+    </div>`;}).join('')+'</div>';
+}
+function toggleShopCheck(key){
+  S.shopChecked[key]=!S.shopChecked[key];
+  renderShopList();
+}
+function clearShopChecks(){ S.shopChecked={}; renderShopList(); }
+function copyShopList(){
+  if(!S.shopList.length){ toast('清單為空','error'); return; }
+  let t='🛒 採購清單\n══════════════\n';
+  S.shopList.forEach(item=>t+=`□ ${item.name}　${r2(item.qty)} ${item.unit}\n`);
+  t+=`\n── 廚房 SOP Pro · ${new Date().toLocaleDateString('zh-TW')} ──`;
+  navigator.clipboard.writeText(t).then(()=>toast('採購清單已複製','success'));
+}
+
+// ══════════════════════════════════════
+//  TOOLS PAGE
+// ══════════════════════════════════════
+function switchToolTab(tab){
+  S.toolTab=tab;
+  ['converter','timer'].forEach(t=>{
+    document.getElementById(`tool-tab-${t}`).classList.toggle('active',t===tab);
+    document.getElementById(`tool-pane-${t}`).classList.toggle('active',t===tab);
+  });
+}
+function switchConvTab(tab){
+  S.convTab=tab;
+  ['weight','volume','temp'].forEach(t=>{
+    const btn=document.getElementById(`ctab-${t}`);
+    if(btn) btn.classList.toggle('active',t===tab);
+    const pane=document.getElementById(`conv-${t}`);
+    if(pane) pane.style.display=t===tab?'block':'none';
+  });
+}
+function convertWeight(){
+  const v=parseFloat(document.getElementById('conv-w-val').value);
+  const from=document.getElementById('conv-w-from').value;
+  const toG={g:1,kg:1000,lb:453.592,oz:28.3495,'斤':600,'兩':37.5};
+  const el=document.getElementById('conv-w-result');
+  if(isNaN(v)||v===''){ el.innerHTML='<div class="conv-result-list"><div style="font-size:11px;color:var(--text-muted);text-align:center">輸入數值後顯示換算結果</div></div>'; return; }
+  const grams=v*toG[from];
+  const units=[['g','克'],['kg','公斤'],['lb','磅'],['oz','盎司'],['斤','斤'],['兩','兩']];
+  el.innerHTML=`<div class="conv-result-list">${units.filter(([u])=>u!==from).map(([u,label])=>`
+    <div class="conv-result-item">
+      <span class="conv-result-unit">${label} (${u})</span>
+      <span class="conv-result-val">${r4(grams/toG[u])}</span>
+    </div>`).join('')}</div>`;
+}
+function convertVolume(){
+  const v=parseFloat(document.getElementById('conv-v-val').value);
+  const from=document.getElementById('conv-v-from').value;
+  const toMl={ml:1,L:1000,cup:240,tbsp:15,tsp:5,cc:1};
+  const el=document.getElementById('conv-v-result');
+  if(isNaN(v)){ el.innerHTML='<div class="conv-result-list"><div style="font-size:11px;color:var(--text-muted);text-align:center">輸入數值後顯示換算結果</div></div>'; return; }
+  const ml=v*toMl[from];
+  const units=[['ml','毫升'],['L','公升'],['cup','杯'],['tbsp','大匙'],['tsp','小匙']];
+  el.innerHTML=`<div class="conv-result-list">${units.filter(([u])=>u!==from).map(([u,label])=>`
+    <div class="conv-result-item">
+      <span class="conv-result-unit">${label} (${u})</span>
+      <span class="conv-result-val">${r4(ml/toMl[u])}</span>
+    </div>`).join('')}</div>`;
+}
+function convertTemp(){
+  const v=parseFloat(document.getElementById('conv-t-val').value);
+  const from=document.getElementById('conv-t-from').value;
+  const el=document.getElementById('conv-t-result');
+  if(isNaN(v)){ el.innerHTML='<div class="conv-result-list"><div style="font-size:11px;color:var(--text-muted);text-align:center">輸入溫度後顯示換算結果</div></div>'; return; }
+  let c,f,k;
+  if(from==='C'){ c=v; f=v*9/5+32; k=v+273.15; }
+  else if(from==='F'){ f=v; c=(v-32)*5/9; k=c+273.15; }
+  else { k=v; c=v-273.15; f=c*9/5+32; }
+  el.innerHTML=`<div class="conv-result-list">
+    ${from!=='C'?`<div class="conv-result-item"><span class="conv-result-unit">攝氏 (°C)</span><span class="conv-result-val">${r4(c)}</span></div>`:''}
+    ${from!=='F'?`<div class="conv-result-item"><span class="conv-result-unit">華氏 (°F)</span><span class="conv-result-val">${r4(f)}</span></div>`:''}
+    ${from!=='K'?`<div class="conv-result-item"><span class="conv-result-unit">克耳文 (K)</span><span class="conv-result-val">${r4(k)}</span></div>`:''}
+  </div>`;
+}
+function r4(n){ return Math.round(n*10000)/10000; }
+
+// ── TIMER ──
+function timerFmt(s){ const m=Math.floor(s/60),ss=s%60; return `${String(m).padStart(2,'0')}:${String(ss).padStart(2,'0')}`; }
+function updateTimerDisplay(){
+  document.getElementById('timer-clock').textContent=timerFmt(S.timerLeft);
+  const pct=S.timerTotal>0?Math.round((S.timerTotal-S.timerLeft)/S.timerTotal*100):0;
+  document.getElementById('timer-label').textContent=S.timerRunning?`計時中… ${pct}%`:(S.timerLeft===0&&S.timerTotal>0?'計時完成！':'計時器就緒');
+  document.getElementById('timer-start-btn').textContent=S.timerRunning?'⏸ 暫停':'▶ 開始';
+}
+function setTimer(sec){ S.timerTotal=sec; S.timerLeft=sec; S.timerRunning=false; clearInterval(S.timerIv); S.timerIv=null; updateTimerDisplay(); }
+function setCustomTimer(){
+  const m=parseInt(document.getElementById('timer-min').value)||0;
+  const s=parseInt(document.getElementById('timer-sec-inp').value)||0;
+  setTimer(m*60+s);
+}
+function toggleTimer(){
+  if(!S.timerLeft&&!S.timerRunning){ toast('請先設定時間','error'); return; }
+  if(S.timerRunning){ clearInterval(S.timerIv); S.timerIv=null; S.timerRunning=false; updateTimerDisplay(); return; }
+  S.timerRunning=true;
+  S.timerIv=setInterval(()=>{
+    if(S.timerLeft<=0){ clearInterval(S.timerIv); S.timerIv=null; S.timerRunning=false;
+      timerBeep(); timerLogEntry(); updateTimerDisplay(); return; }
+    S.timerLeft--; updateTimerDisplay();
+  },1000);
+  updateTimerDisplay();
+}
+function resetTimer(){ clearInterval(S.timerIv); S.timerIv=null; S.timerRunning=false; S.timerLeft=S.timerTotal; updateTimerDisplay(); }
+function timerBeep(){
+  try{
+    const ctx=new(window.AudioContext||window.webkitAudioContext)();
+    [0,0.3,0.6].forEach(t=>{
+      const o=ctx.createOscillator(),g=ctx.createGain();
+      o.connect(g); g.connect(ctx.destination);
+      o.frequency.value=880; o.type='sine';
+      g.gain.setValueAtTime(0.4,ctx.currentTime+t);
+      g.gain.exponentialRampToValueAtTime(0.001,ctx.currentTime+t+0.25);
+      o.start(ctx.currentTime+t); o.stop(ctx.currentTime+t+0.25);
+    });
+  }catch(e){}
+  toast('⏰ 計時結束！','success');
+}
+function timerLogEntry(){
+  S.timerLog.unshift({time:S.timerTotal,at:new Date().toLocaleTimeString('zh-TW',{hour:'2-digit',minute:'2-digit',second:'2-digit'})});
+  if(S.timerLog.length>10) S.timerLog.pop();
+  const el=document.getElementById('timer-log');
+  if(el) el.innerHTML=S.timerLog.map(l=>`
+    <div style="display:flex;justify-content:space-between;padding:7px 0;border-bottom:1px solid rgba(255,255,255,.04)">
+      <span style="font-size:12px;color:var(--text-secondary)">${timerFmt(l.time)}</span>
+      <span style="font-size:11px;color:var(--text-muted)">${l.at}</span>
+    </div>`).join('');
+}
+
+function buildRefTable(){
+  const el=document.getElementById('ref-table-body');
+  if(!el) return;
+  const sec=(label,color,rows,w)=>`
+    <div style="font-size:10px;font-weight:700;color:${color};text-transform:uppercase;letter-spacing:.8px;margin-bottom:8px">${label}</div>
+    ${rows.map(r=>`<div style="display:flex;gap:8px;padding:4px 0;border-bottom:1px solid rgba(255,255,255,.04);font-size:11px">
+      <span style="color:${color};font-weight:700;width:${w||40}px;flex-shrink:0">${r[0]}</span>
+      <span style="color:var(--text-secondary)">${r[1]}</span>
+      ${r[2]?`<span style="color:var(--text-muted)">${r[2]}</span>`:''}
+    </div>`).join('')}`;
+  el.innerHTML=
+    sec('重量','var(--accent-gold)',[['1 kg','= 1000 g','= 2.205 lb'],['1 lb','= 453.6 g','= 16 oz'],['1 斤','= 600 g',''],['1 兩','= 37.5 g','']],36)+
+    `<div style="margin:10px 0"></div>`+
+    sec('容積','var(--accent-teal-l)',[['1 L','= 1000 ml','= 4.167 杯'],['1 杯','= 240 ml','= 16 大匙'],['1 大匙','= 15 ml','= 3 小匙'],['1 小匙','= 5 ml','']],36)+
+    `<div style="margin:10px 0"></div>`+
+    sec('溫度','var(--accent-red)',[['100°C','= 212°F','水沸點'],['180°C','= 356°F','烤箱常用'],['200°C','= 392°F','高溫烘焙'],['0°C','= 32°F','冰點']],44);
+}
+
+// ══════════════════════════════════════
 //  INIT
 // ══════════════════════════════════════
 hydrate();
 renderDash();
 syncSelects();
+buildRefTable();
 </script>
 
 <!-- ════ PWA ════ -->
@@ -1670,7 +2359,7 @@ window.addEventListener('online', () => toast('網路已恢復連線', 'success'
 // ── URL hash 快速導航 (Shortcuts 支援) ──
 (function handleHash() {
   const h = location.hash.replace('#', '');
-  if (['dashboard','recipes','calculator','sop','print'].includes(h)) {
+  if (['dashboard','recipes','calculator','sop','print','cost','shopping','tools'].includes(h)) {
     go(h);
   }
 })();
