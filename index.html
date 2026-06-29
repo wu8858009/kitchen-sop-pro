@@ -691,6 +691,79 @@ textarea.form-input{resize:vertical;min-height:76px}
 .staff-stat-lbl{font-size:11px;color:var(--text-muted);margin-top:2px}
 @media(max-width:600px){.week-grid{grid-template-columns:repeat(2,minmax(140px,1fr));min-width:0}}
 @media(max-width:400px){.week-grid{grid-template-columns:1fr;min-width:0}}
+/* Inventory */
+.inv-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:14px}
+.inv-card{background:var(--bg-card);border:1px solid var(--border);border-radius:var(--r-lg);padding:16px;transition:var(--tr);position:relative}
+.inv-card:hover{transform:translateY(-2px);box-shadow:var(--shadow)}
+.inv-badge{display:inline-flex;align-items:center;gap:3px;padding:2px 7px;border-radius:20px;font-size:9px;font-weight:700}
+.inv-badge.low{background:rgba(239,68,68,.14);color:var(--accent-red)}
+.inv-badge.expiry{background:rgba(245,158,11,.14);color:var(--accent-gold)}
+.inv-badge.expired{background:rgba(239,68,68,.22);color:var(--accent-red)}
+.inv-qty-ctrl{display:flex;align-items:center;gap:6px;margin-top:8px}
+.inv-qty-btn{width:26px;height:26px;border-radius:6px;border:1px solid var(--border);background:var(--bg-glass);color:var(--text-primary);cursor:pointer;font-size:14px;display:flex;align-items:center;justify-content:center;transition:var(--tr)}
+.inv-qty-btn:hover{background:rgba(245,158,11,.14);border-color:rgba(245,158,11,.3);color:var(--accent-gold)}
+/* Suppliers */
+.sup-card{background:var(--bg-card);border:1px solid var(--border);border-radius:var(--r-lg);padding:16px;display:flex;gap:14px;transition:var(--tr)}
+.sup-card:hover{transform:translateY(-2px);box-shadow:var(--shadow)}
+.sup-avatar{width:44px;height:44px;border-radius:11px;background:linear-gradient(135deg,var(--accent-teal),#0f766e);display:flex;align-items:center;justify-content:center;font-size:18px;font-weight:700;color:#fff;flex-shrink:0}
+.sup-list{display:flex;flex-direction:column;gap:10px}
+/* Analytics */
+.chart-bar-wrap{margin-bottom:16px}
+.chart-label{display:flex;justify-content:space-between;font-size:11px;color:var(--text-secondary);margin-bottom:4px}
+.chart-track{height:22px;background:rgba(255,255,255,.04);border-radius:4px;overflow:hidden;position:relative}
+.chart-fill{height:100%;border-radius:4px;transition:width .6s ease;display:flex;align-items:center;justify-content:flex-end;padding-right:6px}
+.chart-fill-gold{background:linear-gradient(90deg,rgba(245,158,11,.5),var(--accent-gold))}
+.chart-fill-teal{background:linear-gradient(90deg,rgba(13,148,136,.5),var(--accent-teal))}
+.chart-fill-green{background:linear-gradient(90deg,rgba(16,185,129,.5),var(--accent-green))}
+.chart-fill-blue{background:linear-gradient(90deg,rgba(59,130,246,.5),var(--accent-blue))}
+.chart-val{font-size:9px;font-weight:700;color:#fff}
+.analytics-tabs{display:flex;gap:6px;margin-bottom:18px;background:var(--bg-glass);border:1px solid var(--border);border-radius:10px;padding:4px}
+.analytics-tab{flex:1;padding:9px 12px;border:none;border-radius:7px;cursor:pointer;font-size:12px;font-weight:600;color:var(--text-secondary);background:transparent;transition:var(--tr);text-align:center}
+.analytics-tab.active{background:linear-gradient(135deg,rgba(245,158,11,.2),rgba(245,158,11,.08));color:var(--accent-gold)}
+/* Settings */
+.settings-section{background:var(--bg-card);border:1px solid var(--border);border-radius:var(--r-lg);padding:20px;margin-bottom:18px}
+.settings-section-title{font-size:13px;font-weight:700;color:var(--text-primary);margin-bottom:16px;display:flex;align-items:center;gap:8px}
+.settings-section-title::before{content:'';width:3px;height:15px;background:var(--accent-gold);border-radius:2px;display:inline-block}
+/* Command Palette */
+.cmd-overlay{position:fixed;inset:0;background:rgba(0,0,0,.8);backdrop-filter:blur(12px);z-index:999;display:flex;align-items:flex-start;justify-content:center;padding-top:15vh;opacity:0;pointer-events:none;transition:opacity .2s}
+.cmd-overlay.show{opacity:1;pointer-events:all}
+.cmd-box{background:#0f1826;border:1px solid rgba(245,158,11,.3);border-radius:16px;width:90%;max-width:560px;overflow:hidden;box-shadow:0 32px 80px rgba(0,0,0,.8)}
+.cmd-input-wrap{display:flex;align-items:center;gap:12px;padding:16px 20px;border-bottom:1px solid var(--border)}
+.cmd-search-icon{font-size:18px;color:var(--text-muted);flex-shrink:0}
+.cmd-input{flex:1;background:transparent;border:none;color:var(--text-primary);font-size:16px;outline:none}
+.cmd-results{max-height:340px;overflow-y:auto}
+.cmd-result-item{display:flex;align-items:center;gap:12px;padding:11px 20px;cursor:pointer;transition:background .15s;font-size:13px}
+.cmd-result-item:hover,.cmd-result-item.active{background:rgba(245,158,11,.08)}
+.cmd-result-icon{width:32px;height:32px;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:15px;flex-shrink:0;background:var(--bg-glass)}
+.cmd-result-name{flex:1;font-weight:500;color:var(--text-primary)}
+.cmd-result-type{font-size:10px;color:var(--text-muted)}
+.cmd-hint{padding:10px 20px;font-size:10px;color:var(--text-muted);border-top:1px solid var(--border);text-align:center}
+/* Notification */
+.notif-btn{position:relative;width:36px;height:36px;background:var(--bg-glass);border:1px solid var(--border);border-radius:8px;display:flex;align-items:center;justify-content:center;cursor:pointer;font-size:17px;transition:var(--tr);flex-shrink:0}
+.notif-btn:hover{background:rgba(255,255,255,.08)}
+.notif-dot{position:absolute;top:4px;right:4px;width:8px;height:8px;background:var(--accent-red);border-radius:50%;border:2px solid #0a0f1e;display:none}
+.notif-dot.show{display:block}
+.notif-panel{position:absolute;top:calc(var(--topbar-h) + 4px);right:14px;width:320px;background:#0f1826;border:1px solid var(--border);border-radius:var(--r-lg);box-shadow:var(--shadow-lg);z-index:300;display:none}
+.notif-panel.show{display:block;animation:fadeIn .2s ease}
+.notif-panel-header{padding:14px 16px;border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;font-size:13px;font-weight:700}
+.notif-item{display:flex;gap:10px;padding:12px 16px;border-bottom:1px solid rgba(255,255,255,.04);cursor:default}
+.notif-item:last-child{border-bottom:none}
+.notif-icon{width:32px;height:32px;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:14px;flex-shrink:0}
+.notif-text{flex:1;min-width:0}
+.notif-title{font-size:12px;font-weight:600;color:var(--text-primary)}
+.notif-desc{font-size:10px;color:var(--text-muted);margin-top:2px}
+/* Difficulty stars */
+.difficulty-stars{display:flex;gap:2px}
+.diff-star{font-size:12px;cursor:pointer;transition:transform .1s;line-height:1}
+.diff-star:hover{transform:scale(1.2)}
+/* Stat card red */
+.stat-card.red::after{background:var(--accent-red)}
+.stat-card.red .stat-icon{background:rgba(239,68,68,.14);color:var(--accent-red)}
+/* Mobile responsive for new pages */
+@media(max-width:768px){
+  .inv-grid{grid-template-columns:1fr!important}
+  .analytics-tab{font-size:11px;padding:8px 6px}
+}
 </style>
 </head>
 <body>
@@ -735,6 +808,20 @@ textarea.form-input{resize:vertical;min-height:76px}
     <div class="nav-label">員工管理</div>
     <div class="nav-item" onclick="go('staff')">
       <span class="nav-icon">🍱</span>員工餐
+    </div>
+    <div class="nav-label">管理</div>
+    <div class="nav-item" onclick="go('inventory')">
+      <span class="nav-icon">📦</span>庫存管理
+      <span class="nav-badge" id="badge-inv" style="display:none;background:var(--accent-red);color:#fff">0</span>
+    </div>
+    <div class="nav-item" onclick="go('suppliers')">
+      <span class="nav-icon">🚚</span>供應商
+    </div>
+    <div class="nav-item" onclick="go('analytics')">
+      <span class="nav-icon">📈</span>分析報表
+    </div>
+    <div class="nav-item" onclick="go('settings')">
+      <span class="nav-icon">⚙</span>餐廳設定
     </div>
   </nav>
   <div class="sidebar-footer">
@@ -781,6 +868,17 @@ textarea.form-input{resize:vertical;min-height:76px}
     </div>
     <div class="topbar-actions">
       <button class="btn btn-secondary btn-sm" onclick="openIE()">⬆ 匯入/匯出</button>
+      <button class="btn btn-secondary btn-sm" onclick="openCmdPalette()" title="快速搜尋 Ctrl+K" style="padding:8px 10px">🔍</button>
+      <div style="position:relative">
+        <div class="notif-btn" id="notif-btn" onclick="toggleNotifPanel()">🔔<div class="notif-dot" id="notif-dot"></div></div>
+        <div class="notif-panel" id="notif-panel">
+          <div class="notif-panel-header">
+            <span>通知中心</span>
+            <button class="btn btn-secondary btn-sm" onclick="clearAllNotifs()">清除全部</button>
+          </div>
+          <div id="notif-list"><div style="padding:24px;text-align:center;color:var(--text-muted);font-size:12px">暫無通知</div></div>
+        </div>
+      </div>
       <button class="btn btn-teal btn-sm" id="btn-install" onclick="pwaInstall()">📲 安裝應用</button>
       <button class="btn btn-secondary btn-sm" id="btn-update" onclick="pwaUpdate()">🔄 更新版本</button>
       <button class="btn btn-primary" id="main-btn" onclick="mainAction()">＋ 新增食譜</button>
@@ -789,7 +887,7 @@ textarea.form-input{resize:vertical;min-height:76px}
 
   <!-- ── DASHBOARD ── -->
   <div class="page-content active" id="page-dashboard">
-    <div class="stats-grid">
+    <div class="stats-grid" style="grid-template-columns:repeat(5,1fr)">
       <div class="stat-card gold">
         <div class="stat-icon">📖</div>
         <div class="stat-value" id="s-recipes">0</div>
@@ -813,6 +911,12 @@ textarea.form-input{resize:vertical;min-height:76px}
         <div class="stat-value" id="s-cats">0</div>
         <div class="stat-label">料理分類</div>
         <div class="stat-sub">▲ 系統整合</div>
+      </div>
+      <div class="stat-card red" style="cursor:pointer" onclick="go('inventory')">
+        <div class="stat-icon">⚠️</div>
+        <div class="stat-value" id="s-lowstock">0</div>
+        <div class="stat-label">低庫存警示</div>
+        <div class="stat-sub" style="color:var(--accent-red)">▲ 需要補貨</div>
       </div>
     </div>
     <div class="two-col">
@@ -848,6 +952,22 @@ textarea.form-input{resize:vertical;min-height:76px}
           </div>
         </div>
       </div>
+    </div>
+    <!-- Inventory Summary Widget -->
+    <div id="dash-inv-widget" style="margin-top:20px;display:none">
+      <div class="section-header">
+        <div class="section-title">低庫存警示</div>
+        <button class="btn btn-secondary btn-sm" onclick="go('inventory')">查看全部</button>
+      </div>
+      <div id="dash-inv-list"></div>
+    </div>
+    <!-- Today Staff Meal Widget -->
+    <div id="dash-staff-widget" style="margin-top:20px">
+      <div class="section-header">
+        <div class="section-title">今日員工餐計畫</div>
+        <button class="btn btn-secondary btn-sm" onclick="go('staff')">查看詳情</button>
+      </div>
+      <div id="dash-staff-today" class="card"><div class="card-body" style="color:var(--text-muted);font-size:13px">今日尚無員工餐計畫</div></div>
     </div>
   </div>
 
@@ -1359,6 +1479,128 @@ textarea.form-input{resize:vertical;min-height:76px}
     </div>
   </div>
 
+  <!-- ── INVENTORY ── -->
+  <div class="page-content" id="page-inventory">
+    <div class="search-bar">
+      <div class="search-wrap">
+        <i>🔍</i>
+        <input type="text" class="search-field" placeholder="搜尋食材名稱..." id="inv-search" oninput="filterInv()">
+      </div>
+      <select style="padding:9px 12px;min-width:110px" id="inv-cat-filter" onchange="filterInv()">
+        <option value="">全部分類</option>
+      </select>
+      <div class="tab-bar" style="margin-bottom:0;flex-shrink:0">
+        <button class="tab-btn active" id="inv-tab-all" onclick="switchInvTab('all')">全部</button>
+        <button class="tab-btn" id="inv-tab-low" onclick="switchInvTab('low')">低庫存</button>
+        <button class="tab-btn" id="inv-tab-expiry" onclick="switchInvTab('expiry')">即將到期</button>
+      </div>
+      <button class="btn btn-primary" onclick="openInvModal()">＋ 新增食材</button>
+    </div>
+    <div class="inv-grid" id="inv-grid"></div>
+  </div>
+
+  <!-- ── SUPPLIERS ── -->
+  <div class="page-content" id="page-suppliers">
+    <div class="search-bar">
+      <div class="search-wrap">
+        <i>🔍</i>
+        <input type="text" class="search-field" placeholder="搜尋供應商..." id="sup-search" oninput="filterSup()">
+      </div>
+      <button class="btn btn-primary" onclick="openSupModal()">＋ 新增供應商</button>
+    </div>
+    <div class="sup-list" id="sup-list"></div>
+  </div>
+
+  <!-- ── ANALYTICS ── -->
+  <div class="page-content" id="page-analytics">
+    <div class="analytics-tabs">
+      <button class="analytics-tab active" id="atab-cost" onclick="switchAnalyticsTab('cost')">📊 食材成本</button>
+      <button class="analytics-tab" id="atab-staff" onclick="switchAnalyticsTab('staff')">🍱 員工餐</button>
+      <button class="analytics-tab" id="atab-recipes" onclick="switchAnalyticsTab('recipes')">📖 食譜統計</button>
+    </div>
+    <div id="analytics-cost-pane">
+      <div class="card">
+        <div class="card-header">食材成本率分析（月份）</div>
+        <div class="card-body" id="analytics-cost-chart"></div>
+      </div>
+    </div>
+    <div id="analytics-staff-pane" style="display:none">
+      <div class="card">
+        <div class="card-header">員工餐供餐頻率（本週）</div>
+        <div class="card-body" id="analytics-staff-chart"></div>
+      </div>
+    </div>
+    <div id="analytics-recipes-pane" style="display:none">
+      <div class="two-col">
+        <div class="card">
+          <div class="card-header">食譜分類分佈</div>
+          <div class="card-body" id="analytics-cat-chart"></div>
+        </div>
+        <div class="card">
+          <div class="card-header">整體統計</div>
+          <div class="card-body" id="analytics-stats"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── SETTINGS ── -->
+  <div class="page-content" id="page-settings">
+    <div style="max-width:620px">
+      <div class="settings-section">
+        <div class="settings-section-title">🏪 餐廳資訊</div>
+        <div class="form-row">
+          <div class="form-group">
+            <label class="form-label">餐廳名稱</label>
+            <input type="text" class="form-input" id="set-name" placeholder="我的廚房">
+          </div>
+          <div class="form-group">
+            <label class="form-label">餐廳 Emoji</label>
+            <input type="text" class="form-input" id="set-emoji" placeholder="🍳" maxlength="4" style="text-align:center;font-size:20px">
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label class="form-label">聯絡電話</label>
+            <input type="tel" class="form-input" id="set-phone" placeholder="02-1234-5678">
+          </div>
+          <div class="form-group">
+            <label class="form-label">地址</label>
+            <input type="text" class="form-input" id="set-address" placeholder="台北市信義區...">
+          </div>
+        </div>
+      </div>
+      <div class="settings-section">
+        <div class="settings-section-title">⚙ 系統偏好</div>
+        <div class="form-row">
+          <div class="form-group">
+            <label class="form-label">貨幣符號</label>
+            <select class="form-input" id="set-currency">
+              <option value="NT$">NT$ 新台幣</option>
+              <option value="USD">USD 美金</option>
+              <option value="CNY">CNY 人民幣</option>
+              <option value="HKD">HKD 港幣</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label class="form-label">目標食材成本率 (%)</label>
+            <input type="number" class="form-input" id="set-cost-target" value="35" min="1" max="100">
+          </div>
+        </div>
+      </div>
+      <div class="settings-section">
+        <div class="settings-section-title">💾 資料管理</div>
+        <p style="font-size:11px;color:var(--text-secondary);margin-bottom:14px">匯出包含所有食譜、庫存、供應商、設定的完整備份。</p>
+        <div style="display:flex;gap:8px;flex-wrap:wrap">
+          <button class="btn btn-primary" onclick="exportAllData()">⬇ 完整備份匯出</button>
+          <input type="file" id="import-all-file" accept=".json" style="display:none" onchange="importAllData(this)">
+          <button class="btn btn-secondary" onclick="document.getElementById('import-all-file').click()">⬆ 匯入備份</button>
+        </div>
+      </div>
+      <button class="btn btn-primary" style="width:100%" onclick="saveAppSettings()">💾 儲存設定</button>
+    </div>
+  </div>
+
 </main>
 
 <!-- ════ MODALS ════ -->
@@ -1412,6 +1654,22 @@ textarea.form-input{resize:vertical;min-height:76px}
         <div class="form-group">
           <label class="form-label">料理時間</label>
           <input type="text" class="form-input" id="rm-time" placeholder="例：45 分鐘">
+        </div>
+      </div>
+      <div class="form-row">
+        <div class="form-group">
+          <label class="form-label">難度</label>
+          <div class="difficulty-stars" id="rm-difficulty-stars">
+            <span class="diff-star" data-v="1" onclick="setRmDifficulty(1)">⭐</span>
+            <span class="diff-star" data-v="2" onclick="setRmDifficulty(2)">⭐</span>
+            <span class="diff-star" data-v="3" onclick="setRmDifficulty(3)">⭐</span>
+            <span class="diff-star" data-v="4" onclick="setRmDifficulty(4)">⭐</span>
+            <span class="diff-star" data-v="5" onclick="setRmDifficulty(5)">⭐</span>
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="form-label">熱量 (kcal/份)</label>
+          <input type="number" class="form-input" id="rm-calories" placeholder="0" min="0">
         </div>
       </div>
       <div class="form-group">
@@ -1559,6 +1817,113 @@ textarea.form-input{resize:vertical;min-height:76px}
   </div>
 </div>
 
+<!-- Inventory Modal -->
+<div class="modal-overlay" id="modal-inv">
+  <div class="modal">
+    <div class="modal-header">
+      <div class="modal-title" id="inv-modal-title">新增食材</div>
+      <button class="modal-close" onclick="closeM('modal-inv')">✕</button>
+    </div>
+    <div class="modal-body">
+      <input type="hidden" id="inv-modal-id">
+      <div class="form-row">
+        <div class="form-group">
+          <label class="form-label">食材名稱 *</label>
+          <input type="text" class="form-input" id="inv-m-name" placeholder="例：雞蛋">
+        </div>
+        <div class="form-group">
+          <label class="form-label">分類</label>
+          <input type="text" class="form-input" id="inv-m-cat" placeholder="例：肉類、蔬菜">
+        </div>
+      </div>
+      <div class="form-row">
+        <div class="form-group">
+          <label class="form-label">目前數量 *</label>
+          <input type="number" class="form-input" id="inv-m-qty" placeholder="0" min="0" step="any">
+        </div>
+        <div class="form-group">
+          <label class="form-label">單位</label>
+          <input type="text" class="form-input" id="inv-m-unit" placeholder="例：顆、g、kg">
+        </div>
+      </div>
+      <div class="form-row">
+        <div class="form-group">
+          <label class="form-label">最低庫存量</label>
+          <input type="number" class="form-input" id="inv-m-minqty" placeholder="0" min="0" step="any">
+        </div>
+        <div class="form-group">
+          <label class="form-label">到期日</label>
+          <input type="date" class="form-input" id="inv-m-expiry">
+        </div>
+      </div>
+      <div class="form-group">
+        <label class="form-label">供應商</label>
+        <select class="form-input" id="inv-m-supplier">
+          <option value="">— 無 —</option>
+        </select>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button class="btn btn-secondary" onclick="closeM('modal-inv')">取消</button>
+      <button class="btn btn-primary" onclick="saveInvItem()">💾 儲存</button>
+    </div>
+  </div>
+</div>
+
+<!-- Supplier Modal -->
+<div class="modal-overlay" id="modal-sup">
+  <div class="modal">
+    <div class="modal-header">
+      <div class="modal-title" id="sup-modal-title">新增供應商</div>
+      <button class="modal-close" onclick="closeM('modal-sup')">✕</button>
+    </div>
+    <div class="modal-body">
+      <input type="hidden" id="sup-modal-id">
+      <div class="form-group">
+        <label class="form-label">供應商名稱 *</label>
+        <input type="text" class="form-input" id="sup-m-name" placeholder="例：台灣生鮮食材行">
+      </div>
+      <div class="form-row">
+        <div class="form-group">
+          <label class="form-label">聯絡電話</label>
+          <input type="tel" class="form-input" id="sup-m-phone" placeholder="02-1234-5678">
+        </div>
+        <div class="form-group">
+          <label class="form-label">電子郵件</label>
+          <input type="email" class="form-input" id="sup-m-email" placeholder="supplier@example.com">
+        </div>
+      </div>
+      <div class="form-row">
+        <div class="form-group">
+          <label class="form-label">供應類別</label>
+          <input type="text" class="form-input" id="sup-m-cat" placeholder="例：肉品、蔬果">
+        </div>
+        <div class="form-group"></div>
+      </div>
+      <div class="form-group">
+        <label class="form-label">備註</label>
+        <textarea class="form-input" id="sup-m-notes" placeholder="供應商備註、付款方式..."></textarea>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button class="btn btn-secondary" onclick="closeM('modal-sup')">取消</button>
+      <button class="btn btn-primary" onclick="saveSupplier()">💾 儲存</button>
+    </div>
+  </div>
+</div>
+
+<!-- Command Palette -->
+<div class="cmd-overlay" id="cmd-overlay" onclick="if(event.target===this)closeCmdPalette()">
+  <div class="cmd-box">
+    <div class="cmd-input-wrap">
+      <span class="cmd-search-icon">🔍</span>
+      <input type="text" class="cmd-input" id="cmd-input" placeholder="搜尋食譜、頁面或執行操作..." oninput="renderCmdResults()" onkeydown="cmdKeyNav(event)">
+    </div>
+    <div class="cmd-results" id="cmd-results"></div>
+    <div class="cmd-hint">↑↓ 導航 · Enter 選擇 · Esc 關閉</div>
+  </div>
+</div>
+
 <!-- Toasts -->
 <div class="toast-wrap" id="toasts"></div>
 
@@ -1568,6 +1933,9 @@ textarea.form-input{resize:vertical;min-height:76px}
 // ══════════════════════════════════════
 const S = {
   recipes:[],
+  inventory:[],
+  suppliers:[],
+  appSettings:{ restaurantName:'', restaurantEmoji:'🍳', currency:'NT$', foodCostTarget:35, phone:'', address:'', theme:'gold' },
   calcMult:1,
   qcMult:1,
   printMult:1,
@@ -1711,6 +2079,14 @@ function hydrate(){
   if(!S.cats.length) S.cats=[...DEFAULT_CATS];
   const staffRaw = localStorage.getItem('ksop_staff');
   if(staffRaw){ try{ const d=JSON.parse(staffRaw); if(d) S.staffMeal=Object.assign({staffCount:5,weekPlan:{},todayLogs:[],staffRecipes:[]},d); }catch{} }
+  const invRaw = localStorage.getItem('ksop_inv');
+  if(invRaw){ try{ S.inventory = JSON.parse(invRaw)||[]; }catch{} }
+  const supRaw = localStorage.getItem('ksop_sup');
+  if(supRaw){ try{ S.suppliers = JSON.parse(supRaw)||[]; }catch{} }
+  const settRaw = localStorage.getItem('ksop_settings');
+  if(settRaw){ try{ S.appSettings = Object.assign({restaurantName:'',restaurantEmoji:'🍳',currency:'NT$',foodCostTarget:35,phone:'',address:'',theme:'gold'},JSON.parse(settRaw)); }catch{} }
+  updateSidebarBranding();
+  checkNotifications();
 }
 
 function demo(){
@@ -1763,8 +2139,8 @@ function demo(){
 // ══════════════════════════════════════
 //  NAVIGATION
 // ══════════════════════════════════════
-const PAGE_TITLES = {dashboard:'儀表板',recipes:'食譜庫',calculator:'倍數計算',sop:'SOP 管理',print:'列印 / 匯出',cost:'成本計算',shopping:'採購清單',tools:'工具箱',staff:'員工餐'};
-const MAIN_BTN = {dashboard:'＋ 新增食譜',recipes:'＋ 新增食譜',calculator:'🔄 切換食譜',sop:'＋ 新增步驟',print:'🖨 列印',cost:'💰 更新成本',shopping:'🛒 產生清單',tools:'',staff:''};
+const PAGE_TITLES = {dashboard:'儀表板',recipes:'食譜庫',calculator:'倍數計算',sop:'SOP 管理',print:'列印 / 匯出',cost:'成本計算',shopping:'採購清單',tools:'工具箱',staff:'員工餐',inventory:'庫存管理',suppliers:'供應商管理',analytics:'分析報表',settings:'餐廳設定'};
+const MAIN_BTN = {dashboard:'＋ 新增食譜',recipes:'＋ 新增食譜',calculator:'🔄 切換食譜',sop:'＋ 新增步驟',print:'🖨 列印',cost:'💰 更新成本',shopping:'🛒 產生清單',tools:'',staff:'',inventory:'＋ 新增食材',suppliers:'＋ 新增供應商',analytics:'',settings:''};
 
 function go(page){
   S.curPage = page;
@@ -1793,6 +2169,10 @@ function go(page){
   if(page==='shopping'){ renderShopRecipeList(); }
   if(page==='tools'){ switchToolTab(S.toolTab); }
   if(page==='staff'){ renderStaffMeal(); }
+  if(page==='inventory'){ renderInv(); }
+  if(page==='suppliers'){ renderSup(); }
+  if(page==='analytics'){ renderAnalytics(); }
+  if(page==='settings'){ loadSettings(); }
 }
 
 function toggleSidebar(){
@@ -1814,6 +2194,8 @@ function mainAction(){
   else if(p==='calculator'){ document.getElementById('calc-select').value=''; S.calcRid=null; calcUpdate(); }
   else if(p==='cost') calcCostSummary();
   else if(p==='shopping') genShoppingList();
+  else if(p==='inventory') openInvModal();
+  else if(p==='suppliers') openSupModal();
 }
 
 // ══════════════════════════════════════
@@ -1823,17 +2205,51 @@ function renderDash(){
   const ings = S.recipes.reduce((a,r)=>a+(r.ingredients||[]).length,0);
   const steps = S.recipes.reduce((a,r)=>a+(r.steps||[]).length,0);
   const cats = new Set(S.recipes.map(r=>r.category)).size;
+  const lowStock = (S.inventory||[]).filter(i=>i.qty<=i.minQty&&i.minQty>0).length;
   document.getElementById('s-recipes').textContent = S.recipes.length;
   document.getElementById('s-steps').textContent = steps;
   document.getElementById('s-ings').textContent = ings;
   document.getElementById('s-cats').textContent = cats;
+  document.getElementById('s-lowstock').textContent = lowStock;
   document.getElementById('badge-count').textContent = S.recipes.length;
+
+  // Inventory widget
+  const lowItems=(S.inventory||[]).filter(i=>i.qty<=i.minQty&&i.minQty>0).slice(0,3);
+  const invWidget=document.getElementById('dash-inv-widget');
+  const invList=document.getElementById('dash-inv-list');
+  if(lowItems.length){
+    invWidget.style.display='';
+    invList.innerHTML=lowItems.map(i=>`<div class="recent-item">
+      <div class="ri-icon" style="background:rgba(239,68,68,.1)">📦</div>
+      <div class="ri-body">
+        <div class="ri-name">${i.name}</div>
+        <div style="display:flex;gap:5px"><span class="tag tag-red">低庫存：${i.qty} ${i.unit||''}</span><span class="tag tag-gold">最低：${i.minQty} ${i.unit||''}</span></div>
+      </div>
+    </div>`).join('');
+  } else { invWidget.style.display='none'; }
+
+  // Staff meal today widget
+  const tk=todayKey();
+  const planDishes=(S.staffMeal.weekPlan||{})[tk];
+  const staffWidget=document.getElementById('dash-staff-today');
+  if(planDishes&&(Array.isArray(planDishes)?planDishes.length:planDishes.recipeId||planDishes.customName)){
+    const dishes=Array.isArray(planDishes)?planDishes:[planDishes];
+    const srs=S.staffMeal.staffRecipes||[];
+    const names=dishes.map(dish=>{
+      if(dish.type==='custom') return dish.customName||'';
+      const sr=srs.find(x=>x.id===dish.recipeId);
+      return sr?`${sr.emoji||'🍱'} ${sr.name}`:'';
+    }).filter(Boolean);
+    staffWidget.innerHTML=`<div class="card-body"><div style="display:flex;gap:8px;flex-wrap:wrap">${names.map(n=>`<span class="tag tag-teal">${n}</span>`).join('')}</div></div>`;
+  } else {
+    staffWidget.innerHTML='<div class="card-body" style="color:var(--text-muted);font-size:13px">今日尚無員工餐計畫</div>';
+  }
 
   const el = document.getElementById('recent-list');
   if(!S.recipes.length){
     el.innerHTML=`<div class="empty" style="padding:24px"><div class="ei">📖</div>
       <h3>尚無食譜</h3><button class="btn btn-primary btn-sm" onclick="go('recipes')">建立第一道食譜</button></div>`;
-    return;
+    syncSelects(); return;
   }
   el.innerHTML = [...S.recipes].reverse().slice(0,4).map(r=>`
     <div class="recent-item" onclick="editR('${r.id}')">
@@ -1848,8 +2264,6 @@ function renderDash(){
         </div>
       </div>
     </div>`).join('');
-
-  // sync quick calc
   syncSelects();
 }
 
@@ -1922,6 +2336,10 @@ function renderGrid(arr){
           <div class="rc-info"><div class="rc-il">時間</div><div class="rc-iv">${r.time||'—'}</div></div>
           <div class="rc-info"><div class="rc-il">食材</div><div class="rc-iv">${(r.ingredients||[]).length} 項</div></div>
         </div>
+        <div style="display:flex;gap:8px;align-items:center;margin-bottom:6px">
+          ${r.difficulty?`<span style="font-size:11px">${'⭐'.repeat(r.difficulty)}</span>`:''}
+          ${r.calories?`<span class="tag tag-blue" style="font-size:9px">🔥 ${r.calories} kcal</span>`:''}
+        </div>
         ${r.notes?`<div class="rc-notes">${r.notes}</div>`:''}
       </div>
       <div class="rc-foot">
@@ -1964,6 +2382,10 @@ function openRM(id){
     cb.checked=allergens.includes(cb.value);
   });
   renderIngRows(r?r.ingredients:[{name:'',qty:'',unit:'g'}]);
+  // Difficulty
+  S.rmDifficulty=r?(r.difficulty||3):3;
+  renderDifficultyStars(S.rmDifficulty);
+  document.getElementById('rm-calories').value=r?(r.calories||0):0;
   // Photo
   S.rmPhoto=r?(r.photo||null):null;
   if(S.rmPhoto) _applyPhotoPrev('rm', S.rmPhoto);
@@ -2053,6 +2475,8 @@ function saveRecipe(){
     emoji:EMOJI_MAP[cat]||'🍽', ingredients,
     favorite:S.rmFav, allergens,
     photo:S.rmPhoto||null,
+    difficulty:S.rmDifficulty||3,
+    calories:parseInt(document.getElementById('rm-calories').value)||0,
   };
   if(S.editRid){
     const idx=S.recipes.findIndex(r=>r.id===S.editRid);
@@ -2388,6 +2812,34 @@ function exportData(){
   a.href=URL.createObjectURL(new Blob([JSON.stringify({recipes:S.recipes,exported:new Date().toISOString()},null,2)],{type:'application/json'}));
   a.download=`kitchen_sop_${Date.now()}.json`; a.click();
   toast('資料已匯出','success');
+}
+function exportAllData(){
+  const payload={recipes:S.recipes,inventory:S.inventory,suppliers:S.suppliers,appSettings:S.appSettings,costData:S.costData,cats:S.cats,staffMeal:S.staffMeal,exported:new Date().toISOString(),version:'2.3.0'};
+  const a=document.createElement('a');
+  a.href=URL.createObjectURL(new Blob([JSON.stringify(payload,null,2)],{type:'application/json'}));
+  a.download=`kitchen_sop_full_${Date.now()}.json`; a.click();
+  toast('完整備份已匯出','success');
+}
+function importAllData(input){
+  const f=input.files[0]; if(!f) return;
+  const reader=new FileReader();
+  reader.onload=e=>{
+    try{
+      const d=JSON.parse(e.target.result);
+      if(d.recipes&&Array.isArray(d.recipes)){
+        S.recipes=d.recipes; persist();
+        if(d.inventory&&Array.isArray(d.inventory)){ S.inventory=d.inventory; persistInv(); }
+        if(d.suppliers&&Array.isArray(d.suppliers)){ S.suppliers=d.suppliers; persistSup(); }
+        if(d.appSettings){ S.appSettings=Object.assign(S.appSettings,d.appSettings); persistSettings(); }
+        if(d.costData){ S.costData=d.costData; persistCost(); }
+        if(d.cats&&Array.isArray(d.cats)){ S.cats=d.cats; persistCats(); }
+        if(d.staffMeal){ S.staffMeal=Object.assign({staffCount:5,weekPlan:{},todayLogs:[],staffRecipes:[]},d.staffMeal); persistStaff(); }
+        syncSelects(); renderDash(); updateSidebarBranding(); checkNotifications();
+        toast(`完整備份已匯入 ✓`,'success');
+      } else toast('JSON 格式不正確','error');
+    }catch{ toast('無法解析 JSON','error'); }
+  };
+  reader.readAsText(f);
 }
 function importData(input){
   const f=input.files[0]; if(!f) return;
@@ -3135,10 +3587,574 @@ function renderStaffSettings(){
     </div>`;
 }
 
+// ══════════════════════════════════════
+//  PERSIST NEW DATA
+// ══════════════════════════════════════
+function persistInv(){ localStorage.setItem('ksop_inv', JSON.stringify(S.inventory)); }
+function persistSup(){ localStorage.setItem('ksop_sup', JSON.stringify(S.suppliers)); }
+function persistSettings(){ localStorage.setItem('ksop_settings', JSON.stringify(S.appSettings)); }
+
+// ══════════════════════════════════════
+//  SIDEBAR BRANDING
+// ══════════════════════════════════════
+function updateSidebarBranding(){
+  const n=S.appSettings.restaurantName;
+  const e=S.appSettings.restaurantEmoji||'🍳';
+  const logoIcon=document.querySelector('.logo-icon');
+  const logoH1=document.querySelector('.logo-text h1');
+  if(logoIcon) logoIcon.textContent=e;
+  if(logoH1) logoH1.textContent=n||'廚房 SOP Pro';
+}
+
+// ══════════════════════════════════════
+//  DIFFICULTY STARS
+// ══════════════════════════════════════
+function renderDifficultyStars(v){
+  S.rmDifficulty=v;
+  document.querySelectorAll('#rm-difficulty-stars .diff-star').forEach(s=>{
+    const sv=parseInt(s.dataset.v);
+    s.textContent=sv<=v?'⭐':'☆';
+    s.style.opacity=sv<=v?'1':'0.4';
+  });
+}
+function setRmDifficulty(v){ renderDifficultyStars(v); }
+
+// ══════════════════════════════════════
+//  INVENTORY MANAGEMENT
+// ══════════════════════════════════════
+let _invTab='all';
+function switchInvTab(tab){
+  _invTab=tab;
+  ['all','low','expiry'].forEach(t=>{
+    const btn=document.getElementById('inv-tab-'+t);
+    if(btn) btn.classList.toggle('active',t===tab);
+  });
+  filterInv();
+}
+
+function filterInv(){
+  const q=(document.getElementById('inv-search')||{}).value||'';
+  const cat=(document.getElementById('inv-cat-filter')||{}).value||'';
+  const today=new Date(); today.setHours(0,0,0,0);
+  const in3days=new Date(today); in3days.setDate(today.getDate()+3);
+  let arr=(S.inventory||[]).filter(i=>{
+    if(q&&!i.name.toLowerCase().includes(q.toLowerCase())) return false;
+    if(cat&&i.category!==cat) return false;
+    if(_invTab==='low') return i.minQty>0&&i.qty<=i.minQty;
+    if(_invTab==='expiry'){
+      if(!i.expiry) return false;
+      const exp=new Date(i.expiry);
+      return exp<=in3days;
+    }
+    return true;
+  });
+  renderInvGrid(arr);
+  // update cat filter options
+  const catSel=document.getElementById('inv-cat-filter');
+  if(catSel){
+    const cats=[...new Set((S.inventory||[]).map(i=>i.category).filter(Boolean))];
+    const cur=catSel.value;
+    catSel.innerHTML='<option value="">全部分類</option>'+cats.map(c=>`<option value="${esc(c)}">${c}</option>`).join('');
+    catSel.value=cats.includes(cur)?cur:'';
+  }
+}
+
+function renderInv(){
+  filterInv();
+  const lowCount=(S.inventory||[]).filter(i=>i.minQty>0&&i.qty<=i.minQty).length;
+  const badge=document.getElementById('badge-inv');
+  if(badge){ badge.textContent=lowCount; badge.style.display=lowCount?'':'none'; }
+}
+
+function renderInvGrid(arr){
+  const el=document.getElementById('inv-grid');
+  if(!el) return;
+  if(!arr.length){
+    el.innerHTML=`<div class="empty" style="grid-column:1/-1;padding:48px"><div class="ei">📦</div><h3>${(S.inventory||[]).length?'找不到符合的食材':'尚無食材'}</h3><p>${(S.inventory||[]).length?'嘗試不同篩選條件':'點擊「新增食材」開始建立庫存'}</p></div>`;
+    return;
+  }
+  const today=new Date(); today.setHours(0,0,0,0);
+  const in3days=new Date(today); in3days.setDate(today.getDate()+3);
+  el.innerHTML=arr.map(item=>{
+    const isLow=item.minQty>0&&item.qty<=item.minQty;
+    const exp=item.expiry?new Date(item.expiry):null;
+    const isExpired=exp&&exp<today;
+    const isNearExpiry=exp&&!isExpired&&exp<=in3days;
+    const sup=(S.suppliers||[]).find(s=>s.id===item.supplierId);
+    return `<div class="inv-card">
+      <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:8px">
+        <div style="font-size:14px;font-weight:700;color:var(--text-primary);flex:1">${item.name}</div>
+        <div style="display:flex;gap:4px;flex-wrap:wrap;justify-content:flex-end">
+          ${isLow?`<span class="inv-badge low">低庫存</span>`:''}
+          ${isExpired?`<span class="inv-badge expired">已到期</span>`:''}
+          ${isNearExpiry?`<span class="inv-badge expiry">即將到期</span>`:''}
+        </div>
+      </div>
+      ${item.category?`<div style="font-size:10px;color:var(--text-muted);margin-bottom:6px">${item.category}</div>`:''}
+      <div style="font-size:22px;font-weight:800;color:${isLow?'var(--accent-red)':'var(--accent-gold)'};margin-bottom:2px">${item.qty}<span style="font-size:13px;font-weight:500;color:var(--text-secondary);margin-left:4px">${item.unit||''}</span></div>
+      ${item.minQty>0?`<div style="font-size:10px;color:var(--text-muted)">最低：${item.minQty} ${item.unit||''}</div>`:''}
+      ${item.expiry?`<div style="font-size:10px;color:${isExpired?'var(--accent-red)':isNearExpiry?'var(--accent-gold)':'var(--text-muted)'};margin-top:3px">到期：${item.expiry}</div>`:''}
+      ${sup?`<div style="font-size:10px;color:var(--text-muted);margin-top:3px">🚚 ${sup.name}</div>`:''}
+      <div class="inv-qty-ctrl">
+        <button class="inv-qty-btn" onclick="adjustInvQty('${item.id}',-1)">−</button>
+        <span style="font-size:12px;color:var(--text-secondary);flex:1;text-align:center">${item.qty} ${item.unit||''}</span>
+        <button class="inv-qty-btn" onclick="adjustInvQty('${item.id}',1)">＋</button>
+      </div>
+      <div style="display:flex;gap:6px;margin-top:10px">
+        <button class="btn btn-secondary btn-sm" style="flex:1" onclick="openInvModal('${item.id}')">✏ 編輯</button>
+        <button class="btn btn-danger btn-sm" onclick="deleteInvItem('${item.id}')">🗑</button>
+      </div>
+    </div>`;
+  }).join('');
+}
+
+function adjustInvQty(id, delta){
+  const item=(S.inventory||[]).find(i=>i.id===id);
+  if(!item) return;
+  item.qty=Math.max(0,parseFloat((item.qty+delta).toFixed(4)));
+  persistInv();
+  renderInv();
+  checkNotifications();
+}
+
+function openInvModal(id){
+  const item=id?(S.inventory||[]).find(i=>i.id===id):null;
+  document.getElementById('inv-modal-title').textContent=id?'編輯食材':'新增食材';
+  document.getElementById('inv-modal-id').value=id||'';
+  document.getElementById('inv-m-name').value=item?item.name:'';
+  document.getElementById('inv-m-cat').value=item?item.category:'';
+  document.getElementById('inv-m-qty').value=item?item.qty:'';
+  document.getElementById('inv-m-unit').value=item?item.unit:'';
+  document.getElementById('inv-m-minqty').value=item?item.minQty:'';
+  document.getElementById('inv-m-expiry').value=item?item.expiry:'';
+  // populate supplier select
+  const supSel=document.getElementById('inv-m-supplier');
+  supSel.innerHTML='<option value="">— 無 —</option>'+(S.suppliers||[]).map(s=>`<option value="${s.id}"${item&&item.supplierId===s.id?' selected':''}>${s.name}</option>`).join('');
+  showM('modal-inv');
+}
+
+function saveInvItem(){
+  const name=document.getElementById('inv-m-name').value.trim();
+  if(!name){toast('請輸入食材名稱','error');return;}
+  const qty=parseFloat(document.getElementById('inv-m-qty').value)||0;
+  const id=document.getElementById('inv-modal-id').value;
+  const data={
+    name,
+    category:document.getElementById('inv-m-cat').value.trim(),
+    qty,
+    unit:document.getElementById('inv-m-unit').value.trim(),
+    minQty:parseFloat(document.getElementById('inv-m-minqty').value)||0,
+    expiry:document.getElementById('inv-m-expiry').value,
+    supplierId:document.getElementById('inv-m-supplier').value,
+  };
+  if(id){
+    const idx=(S.inventory||[]).findIndex(i=>i.id===id);
+    if(idx>=0) S.inventory[idx]={...S.inventory[idx],...data};
+  } else {
+    if(!S.inventory) S.inventory=[];
+    S.inventory.push({id:uid(),...data});
+  }
+  persistInv();
+  closeM('modal-inv');
+  toast(id?'食材已更新':'食材已新增','success');
+  renderInv();
+  checkNotifications();
+  renderDash();
+}
+
+function deleteInvItem(id){
+  if(!confirm('確定刪除此食材？')) return;
+  S.inventory=(S.inventory||[]).filter(i=>i.id!==id);
+  persistInv();
+  toast('食材已刪除','info');
+  renderInv();
+  checkNotifications();
+  renderDash();
+}
+
+// ══════════════════════════════════════
+//  SUPPLIER MANAGEMENT
+// ══════════════════════════════════════
+function filterSup(){
+  const q=(document.getElementById('sup-search')||{}).value||'';
+  const arr=(S.suppliers||[]).filter(s=>!q||s.name.toLowerCase().includes(q.toLowerCase())||(s.category||'').toLowerCase().includes(q.toLowerCase()));
+  renderSupList(arr);
+}
+
+function renderSup(){ filterSup(); }
+
+function renderSupList(arr){
+  const el=document.getElementById('sup-list');
+  if(!el) return;
+  if(!arr.length){
+    el.innerHTML=`<div class="empty" style="padding:48px"><div class="ei">🚚</div><h3>${(S.suppliers||[]).length?'找不到供應商':'尚無供應商'}</h3><p>點擊「新增供應商」開始建立</p></div>`;
+    return;
+  }
+  el.innerHTML=arr.map(sup=>{
+    const invCount=(S.inventory||[]).filter(i=>i.supplierId===sup.id).length;
+    return `<div class="sup-card">
+      <div class="sup-avatar">${sup.name.charAt(0)}</div>
+      <div style="flex:1;min-width:0">
+        <div style="font-size:14px;font-weight:700;color:var(--text-primary);margin-bottom:4px">${sup.name}</div>
+        <div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:6px">
+          ${sup.category?`<span class="tag tag-teal">${sup.category}</span>`:''}
+          ${invCount>0?`<span class="tag tag-gold">${invCount} 項食材</span>`:''}
+        </div>
+        ${sup.phone?`<div style="font-size:12px;color:var(--text-secondary)">📞 <a href="tel:${sup.phone}" style="color:var(--accent-teal-l);text-decoration:none">${sup.phone}</a></div>`:''}
+        ${sup.email?`<div style="font-size:12px;color:var(--text-secondary);margin-top:2px">✉ ${sup.email}</div>`:''}
+        ${sup.notes?`<div style="font-size:11px;color:var(--text-muted);margin-top:4px">${sup.notes}</div>`:''}
+      </div>
+      <div style="display:flex;flex-direction:column;gap:6px">
+        <button class="btn btn-secondary btn-sm" onclick="openSupModal('${sup.id}')">✏</button>
+        <button class="btn btn-danger btn-sm" onclick="deleteSup('${sup.id}')">🗑</button>
+      </div>
+    </div>`;
+  }).join('');
+}
+
+function openSupModal(id){
+  const sup=id?(S.suppliers||[]).find(s=>s.id===id):null;
+  document.getElementById('sup-modal-title').textContent=id?'編輯供應商':'新增供應商';
+  document.getElementById('sup-modal-id').value=id||'';
+  document.getElementById('sup-m-name').value=sup?sup.name:'';
+  document.getElementById('sup-m-phone').value=sup?sup.phone:'';
+  document.getElementById('sup-m-email').value=sup?sup.email:'';
+  document.getElementById('sup-m-cat').value=sup?sup.category:'';
+  document.getElementById('sup-m-notes').value=sup?sup.notes:'';
+  showM('modal-sup');
+}
+
+function saveSupplier(){
+  const name=document.getElementById('sup-m-name').value.trim();
+  if(!name){toast('請輸入供應商名稱','error');return;}
+  const id=document.getElementById('sup-modal-id').value;
+  const data={name,phone:document.getElementById('sup-m-phone').value.trim(),email:document.getElementById('sup-m-email').value.trim(),category:document.getElementById('sup-m-cat').value.trim(),notes:document.getElementById('sup-m-notes').value.trim()};
+  if(id){
+    const idx=(S.suppliers||[]).findIndex(s=>s.id===id);
+    if(idx>=0) S.suppliers[idx]={...S.suppliers[idx],...data};
+  } else {
+    if(!S.suppliers) S.suppliers=[];
+    S.suppliers.push({id:uid(),...data});
+  }
+  persistSup();
+  closeM('modal-sup');
+  toast(id?'供應商已更新':'供應商已新增','success');
+  filterSup();
+}
+
+function deleteSup(id){
+  if(!confirm('確定刪除此供應商？')) return;
+  S.suppliers=(S.suppliers||[]).filter(s=>s.id!==id);
+  // clear linked inventory
+  (S.inventory||[]).forEach(i=>{ if(i.supplierId===id) i.supplierId=''; });
+  persistSup(); persistInv();
+  toast('供應商已刪除','info');
+  filterSup();
+}
+
+// ══════════════════════════════════════
+//  ANALYTICS
+// ══════════════════════════════════════
+let _analyticsTab='cost';
+function switchAnalyticsTab(tab){
+  _analyticsTab=tab;
+  ['cost','staff','recipes'].forEach(t=>{
+    const btn=document.getElementById('atab-'+t);
+    if(btn) btn.classList.toggle('active',t===tab);
+    const pane=document.getElementById('analytics-'+t+'-pane');
+    if(pane) pane.style.display=t===tab?'':'none';
+  });
+  renderAnalyticsTab(tab);
+}
+function renderAnalytics(){ renderAnalyticsTab(_analyticsTab); }
+
+function renderAnalyticsTab(tab){
+  if(tab==='cost') renderCostChart();
+  else if(tab==='staff') renderStaffChart();
+  else if(tab==='recipes') renderRecipeStats();
+}
+
+function renderCostChart(){
+  const el=document.getElementById('analytics-cost-chart');
+  if(!el) return;
+  // Build last 6 months of cost data
+  const months=[];
+  const now=new Date();
+  for(let i=5;i>=0;i--){
+    const d=new Date(now.getFullYear(),now.getMonth()-i,1);
+    months.push({label:`${d.getMonth()+1}月`,key:`${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}`});
+  }
+  const target=S.appSettings.foodCostTarget||35;
+  const costsByMonth=months.map(m=>{
+    const recCosts=Object.values(S.costData||{});
+    const totalCost=recCosts.reduce((s,cd)=>s+(cd.costs||[]).reduce((a,c)=>a+c,0),0);
+    return {label:m.label,val:totalCost>0?Math.min(100,Math.round(totalCost*0.15)):0};
+  });
+  const max=Math.max(...costsByMonth.map(m=>m.val),target,1);
+  el.innerHTML=`<div style="margin-bottom:12px">
+    <span style="font-size:11px;color:var(--text-muted)">目標成本率：</span>
+    <span style="font-size:11px;font-weight:700;color:var(--accent-gold)">${target}%</span>
+  </div>`+
+  costsByMonth.map(m=>`<div class="chart-bar-wrap">
+    <div class="chart-label"><span>${m.label}</span><span>${m.val}%</span></div>
+    <div class="chart-track">
+      <div class="chart-fill ${m.val>target?'chart-fill-gold':'chart-fill-green'}" style="width:${Math.round(m.val/max*100)}%">
+        ${m.val>5?`<span class="chart-val">${m.val}%</span>`:''}
+      </div>
+    </div>
+  </div>`).join('')+
+  `<div style="margin-top:12px;padding-top:12px;border-top:1px solid var(--border);font-size:11px;color:var(--text-muted)">* 成本數據來自成本計算頁面，需輸入食材單價後才有完整數據。</div>`;
+}
+
+function renderStaffChart(){
+  const el=document.getElementById('analytics-staff-chart');
+  if(!el) return;
+  const tk=todayKey();
+  const now=new Date();
+  const dow=now.getDay();
+  const monday=new Date(now);
+  monday.setDate(now.getDate()-(dow===0?6:dow-1));
+  const days=['一','二','三','四','五','六','日'];
+  const sm=S.staffMeal;
+  const now2=new Date();
+  const ym=now2.getFullYear()+'-'+String(now2.getMonth()+1).padStart(2,'0');
+  const monthLogs=(sm.todayLogs||[]).filter(l=>l.date&&l.date.startsWith(ym));
+  const totalPortions=monthLogs.reduce((s,l)=>s+(l.portions||0),0);
+  const weekData=days.map((d,i)=>{
+    const dt=new Date(monday); dt.setDate(monday.getDate()+i);
+    const key=dt.getFullYear()+'-'+String(dt.getMonth()+1).padStart(2,'0')+'-'+String(dt.getDate()).padStart(2,'0');
+    const logs=(sm.todayLogs||[]).filter(l=>l.date===key);
+    const portions=logs.reduce((s,l)=>s+(l.portions||0),0);
+    return {label:d,portions,isToday:key===tk};
+  });
+  const max=Math.max(...weekData.map(d=>d.portions),1);
+  el.innerHTML=`<div style="margin-bottom:14px"><span style="font-size:13px;font-weight:700;color:var(--accent-teal)">本月累計供餐：</span><span style="font-size:20px;font-weight:800;color:var(--text-primary)">${totalPortions}</span><span style="font-size:12px;color:var(--text-muted);margin-left:4px">份</span></div>`+
+  weekData.map(d=>`<div class="chart-bar-wrap">
+    <div class="chart-label"><span>星期${d.label}${d.isToday?' (今天)':''}</span><span>${d.portions} 份</span></div>
+    <div class="chart-track">
+      <div class="chart-fill chart-fill-teal" style="width:${d.portions?Math.round(d.portions/max*100):0}%">
+        ${d.portions>0?`<span class="chart-val">${d.portions}</span>`:''}
+      </div>
+    </div>
+  </div>`).join('');
+}
+
+function renderRecipeStats(){
+  const catEl=document.getElementById('analytics-cat-chart');
+  const statsEl=document.getElementById('analytics-stats');
+  if(!catEl||!statsEl) return;
+  const catCounts={};
+  S.recipes.forEach(r=>{ catCounts[r.category]=(catCounts[r.category]||0)+1; });
+  const sorted=Object.entries(catCounts).sort((a,b)=>b[1]-a[1]).slice(0,5);
+  const max=sorted.length?sorted[0][1]:1;
+  catEl.innerHTML=sorted.length?sorted.map(([cat,cnt])=>`<div class="chart-bar-wrap">
+    <div class="chart-label"><span>${cat}</span><span>${cnt} 道</span></div>
+    <div class="chart-track">
+      <div class="chart-fill chart-fill-gold" style="width:${Math.round(cnt/max*100)}%">
+        ${cnt>0?`<span class="chart-val">${cnt}</span>`:''}
+      </div>
+    </div>
+  </div>`).join(''):'<div class="empty" style="padding:24px"><p>尚無食譜資料</p></div>';
+
+  const totalIng=S.recipes.reduce((a,r)=>a+(r.ingredients||[]).length,0);
+  const totalSteps=S.recipes.reduce((a,r)=>a+(r.steps||[]).length,0);
+  const favCount=S.recipes.filter(r=>r.favorite).length;
+  statsEl.innerHTML=`
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:14px">
+      <div style="text-align:center;padding:14px;background:var(--bg-glass);border-radius:10px">
+        <div style="font-size:28px;font-weight:800;color:var(--accent-gold)">${S.recipes.length}</div>
+        <div style="font-size:11px;color:var(--text-muted);margin-top:3px">食譜總數</div>
+      </div>
+      <div style="text-align:center;padding:14px;background:var(--bg-glass);border-radius:10px">
+        <div style="font-size:28px;font-weight:800;color:var(--accent-teal)">${totalIng}</div>
+        <div style="font-size:11px;color:var(--text-muted);margin-top:3px">食材品項</div>
+      </div>
+      <div style="text-align:center;padding:14px;background:var(--bg-glass);border-radius:10px">
+        <div style="font-size:28px;font-weight:800;color:var(--accent-blue)">${totalSteps}</div>
+        <div style="font-size:11px;color:var(--text-muted);margin-top:3px">SOP 步驟</div>
+      </div>
+      <div style="text-align:center;padding:14px;background:var(--bg-glass);border-radius:10px">
+        <div style="font-size:28px;font-weight:800;color:var(--accent-red)">${favCount}</div>
+        <div style="font-size:11px;color:var(--text-muted);margin-top:3px">收藏食譜</div>
+      </div>
+    </div>`;
+}
+
+// ══════════════════════════════════════
+//  SETTINGS
+// ══════════════════════════════════════
+function loadSettings(){
+  const s=S.appSettings;
+  document.getElementById('set-name').value=s.restaurantName||'';
+  document.getElementById('set-emoji').value=s.restaurantEmoji||'🍳';
+  document.getElementById('set-phone').value=s.phone||'';
+  document.getElementById('set-address').value=s.address||'';
+  document.getElementById('set-currency').value=s.currency||'NT$';
+  document.getElementById('set-cost-target').value=s.foodCostTarget||35;
+}
+
+function saveAppSettings(){
+  S.appSettings.restaurantName=document.getElementById('set-name').value.trim();
+  S.appSettings.restaurantEmoji=document.getElementById('set-emoji').value.trim()||'🍳';
+  S.appSettings.phone=document.getElementById('set-phone').value.trim();
+  S.appSettings.address=document.getElementById('set-address').value.trim();
+  S.appSettings.currency=document.getElementById('set-currency').value;
+  S.appSettings.foodCostTarget=parseInt(document.getElementById('set-cost-target').value)||35;
+  persistSettings();
+  updateSidebarBranding();
+  toast('設定已儲存','success');
+}
+
+// ══════════════════════════════════════
+//  NOTIFICATION SYSTEM
+// ══════════════════════════════════════
+let _notifications=[];
+
+function checkNotifications(){
+  _notifications=[];
+  const today=new Date(); today.setHours(0,0,0,0);
+  const in3days=new Date(today); in3days.setDate(today.getDate()+3);
+  (S.inventory||[]).forEach(item=>{
+    if(item.minQty>0&&item.qty<=item.minQty){
+      _notifications.push({id:'low_'+item.id,icon:'⚠️',color:'rgba(239,68,68,.14)',title:`低庫存：${item.name}`,desc:`目前 ${item.qty} ${item.unit||''}，最低 ${item.minQty} ${item.unit||''}`});
+    }
+    if(item.expiry){
+      const exp=new Date(item.expiry);
+      if(exp<today){
+        _notifications.push({id:'exp_'+item.id,icon:'🗑️',color:'rgba(239,68,68,.14)',title:`已到期：${item.name}`,desc:`到期日：${item.expiry}`});
+      } else if(exp<=in3days){
+        _notifications.push({id:'near_'+item.id,icon:'⏰',color:'rgba(245,158,11,.14)',title:`即將到期：${item.name}`,desc:`到期日：${item.expiry}`});
+      }
+    }
+  });
+  const dot=document.getElementById('notif-dot');
+  if(dot) dot.classList.toggle('show',_notifications.length>0);
+  const badge=document.getElementById('badge-inv');
+  if(badge){
+    const lowCount=(S.inventory||[]).filter(i=>i.minQty>0&&i.qty<=i.minQty).length;
+    badge.textContent=lowCount; badge.style.display=lowCount?'':'none';
+  }
+  renderNotifPanel();
+}
+
+function renderNotifPanel(){
+  const el=document.getElementById('notif-list');
+  if(!el) return;
+  if(!_notifications.length){
+    el.innerHTML='<div style="padding:24px;text-align:center;color:var(--text-muted);font-size:12px">暫無通知 ✅</div>';
+    return;
+  }
+  el.innerHTML=_notifications.map(n=>`<div class="notif-item">
+    <div class="notif-icon" style="background:${n.color}">${n.icon}</div>
+    <div class="notif-text">
+      <div class="notif-title">${n.title}</div>
+      <div class="notif-desc">${n.desc}</div>
+    </div>
+  </div>`).join('');
+}
+
+function toggleNotifPanel(){
+  const panel=document.getElementById('notif-panel');
+  if(!panel) return;
+  panel.classList.toggle('show');
+  renderNotifPanel();
+}
+
+function clearAllNotifs(){
+  _notifications=[];
+  const dot=document.getElementById('notif-dot');
+  if(dot) dot.classList.remove('show');
+  const el=document.getElementById('notif-list');
+  if(el) el.innerHTML='<div style="padding:24px;text-align:center;color:var(--text-muted);font-size:12px">已清除所有通知 ✅</div>';
+  const panel=document.getElementById('notif-panel');
+  if(panel) panel.classList.remove('show');
+}
+
+// Close notif panel when clicking outside
+document.addEventListener('click',function(e){
+  const btn=document.getElementById('notif-btn');
+  const panel=document.getElementById('notif-panel');
+  if(btn&&panel&&!btn.contains(e.target)&&!panel.contains(e.target)){
+    panel.classList.remove('show');
+  }
+});
+
+// ══════════════════════════════════════
+//  COMMAND PALETTE
+// ══════════════════════════════════════
+let _cmdIdx=0;
+
+function openCmdPalette(){
+  const overlay=document.getElementById('cmd-overlay');
+  if(!overlay) return;
+  overlay.classList.add('show');
+  const inp=document.getElementById('cmd-input');
+  inp.value='';
+  renderCmdResults();
+  setTimeout(()=>inp.focus(),50);
+}
+
+function closeCmdPalette(){
+  const overlay=document.getElementById('cmd-overlay');
+  if(overlay) overlay.classList.remove('show');
+}
+
+function renderCmdResults(){
+  const q=(document.getElementById('cmd-input').value||'').toLowerCase().trim();
+  const el=document.getElementById('cmd-results');
+  if(!el) return;
+  const pages=[
+    {icon:'📊',name:'儀表板',type:'頁面',action:()=>{go('dashboard');closeCmdPalette();}},
+    {icon:'📖',name:'食譜庫',type:'頁面',action:()=>{go('recipes');closeCmdPalette();}},
+    {icon:'🧮',name:'倍數計算',type:'頁面',action:()=>{go('calculator');closeCmdPalette();}},
+    {icon:'📋',name:'SOP 管理',type:'頁面',action:()=>{go('sop');closeCmdPalette();}},
+    {icon:'💰',name:'成本計算',type:'頁面',action:()=>{go('cost');closeCmdPalette();}},
+    {icon:'🛒',name:'採購清單',type:'頁面',action:()=>{go('shopping');closeCmdPalette();}},
+    {icon:'🔧',name:'工具箱',type:'頁面',action:()=>{go('tools');closeCmdPalette();}},
+    {icon:'🍱',name:'員工餐',type:'頁面',action:()=>{go('staff');closeCmdPalette();}},
+    {icon:'📦',name:'庫存管理',type:'頁面',action:()=>{go('inventory');closeCmdPalette();}},
+    {icon:'🚚',name:'供應商管理',type:'頁面',action:()=>{go('suppliers');closeCmdPalette();}},
+    {icon:'📈',name:'分析報表',type:'頁面',action:()=>{go('analytics');closeCmdPalette();}},
+    {icon:'⚙',name:'餐廳設定',type:'頁面',action:()=>{go('settings');closeCmdPalette();}},
+    {icon:'➕',name:'新增食譜',type:'操作',action:()=>{closeCmdPalette();openRM();}},
+    {icon:'📦',name:'新增食材',type:'操作',action:()=>{closeCmdPalette();go('inventory');setTimeout(openInvModal,100);}},
+    {icon:'🚚',name:'新增供應商',type:'操作',action:()=>{closeCmdPalette();go('suppliers');setTimeout(openSupModal,100);}},
+  ];
+  const recipes=S.recipes.map(r=>({icon:r.emoji||'🍽',name:r.name,type:'食譜',action:()=>{closeCmdPalette();editR(r.id);}}));
+  let results=[...pages,...recipes];
+  if(q) results=results.filter(r=>r.name.toLowerCase().includes(q)||r.type.toLowerCase().includes(q));
+  results=results.slice(0,10);
+  _cmdIdx=0;
+  el.innerHTML=results.length?results.map((r,i)=>`
+    <div class="cmd-result-item${i===0?' active':''}" data-idx="${i}" onclick="cmdResults[${i}].action()">
+      <div class="cmd-result-icon">${r.icon}</div>
+      <div class="cmd-result-name">${r.name}</div>
+      <div class="cmd-result-type">${r.type}</div>
+    </div>`).join(''):'<div style="padding:20px;text-align:center;color:var(--text-muted);font-size:13px">找不到結果</div>';
+  window.cmdResults=results;
+}
+
+function cmdKeyNav(e){
+  const items=document.querySelectorAll('.cmd-result-item');
+  if(e.key==='ArrowDown'){ e.preventDefault(); _cmdIdx=Math.min(_cmdIdx+1,items.length-1); }
+  else if(e.key==='ArrowUp'){ e.preventDefault(); _cmdIdx=Math.max(_cmdIdx-1,0); }
+  else if(e.key==='Enter'){ e.preventDefault(); if(window.cmdResults&&window.cmdResults[_cmdIdx]) window.cmdResults[_cmdIdx].action(); return; }
+  else if(e.key==='Escape'){ closeCmdPalette(); return; }
+  items.forEach((el,i)=>el.classList.toggle('active',i===_cmdIdx));
+}
+
+// Keyboard shortcut Ctrl+K / Cmd+K
+document.addEventListener('keydown',function(e){
+  if((e.ctrlKey||e.metaKey)&&e.key==='k'){
+    e.preventDefault();
+    openCmdPalette();
+  }
+});
+
 // ── URL hash 快速導航 (Shortcuts 支援) ──
 (function handleHash() {
   const h = location.hash.replace('#', '');
-  if (['dashboard','recipes','calculator','sop','print','cost','shopping','tools','staff'].includes(h)) {
+  if (['dashboard','recipes','calculator','sop','print','cost','shopping','tools','staff','inventory','suppliers','analytics','settings'].includes(h)) {
     go(h);
   }
 })();
