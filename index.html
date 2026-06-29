@@ -310,10 +310,122 @@ textarea.form-input{resize:vertical;min-height:76px}
 #btn-install{display:none;font-size:12px;padding:6px 12px}
 #btn-update{display:none;font-size:12px;padding:6px 12px}
 
+/* ── HAMBURGER ── */
+.hamburger{display:none;width:40px;height:40px;background:var(--bg-glass);
+  border:1px solid var(--border);border-radius:8px;align-items:center;
+  justify-content:center;font-size:20px;cursor:pointer;color:var(--text-secondary);
+  transition:var(--tr);flex-shrink:0;line-height:1}
+.hamburger:hover{background:rgba(255,255,255,.08);color:var(--text-primary)}
+
+/* ── SIDEBAR OVERLAY ── */
+.sidebar-overlay{position:fixed;inset:0;background:rgba(0,0,0,.6);
+  backdrop-filter:blur(4px);z-index:99;display:none}
+.sidebar-overlay.show{display:block}
+
+/* ── BOTTOM NAV ── */
+.bottom-nav{display:none;position:fixed;bottom:0;left:0;right:0;
+  background:rgba(8,12,24,.97);border-top:1px solid var(--border);
+  backdrop-filter:blur(20px);z-index:90;
+  padding-bottom:env(safe-area-inset-bottom,0px)}
+.bn-items{display:flex}
+.bn-item{flex:1;display:flex;flex-direction:column;align-items:center;
+  justify-content:center;padding:9px 4px 8px;cursor:pointer;transition:var(--tr);
+  color:var(--text-muted);font-size:9px;font-weight:600;gap:3px;
+  border:none;background:transparent;letter-spacing:.3px;
+  -webkit-tap-highlight-color:transparent}
+.bn-icon{font-size:19px;line-height:1}
+.bn-item.active{color:var(--accent-gold)}
+.bn-item:active{opacity:.6}
+
+/* ── RESPONSIVE: TABLET (≤900px) ── */
+@media(max-width:900px){
+  :root{--sidebar-w:220px}
+}
+
+/* ── RESPONSIVE: MOBILE (≤768px) ── */
+@media(max-width:768px){
+  /* Sidebar → drawer */
+  .sidebar{transform:translateX(-100%);transition:transform .3s cubic-bezier(.4,0,.2,1);z-index:100}
+  .sidebar.open{transform:translateX(0);box-shadow:6px 0 40px rgba(0,0,0,.7)}
+
+  /* Layout */
+  .main{margin-left:0;padding-bottom:68px}
+  .topbar{padding:0 14px;height:56px}
+  .page-content{padding:14px 12px}
+
+  /* Hamburger visible */
+  .hamburger{display:flex}
+
+  /* Topbar: hide secondary actions to save space */
+  .topbar-actions .btn-secondary:first-child{display:none}
+
+  /* Grids → single/double column */
+  .stats-grid{grid-template-columns:1fr 1fr;gap:10px;margin-bottom:16px}
+  .two-col{grid-template-columns:1fr;gap:14px}
+  .calc-grid{grid-template-columns:1fr;gap:14px}
+  .recipe-grid{grid-template-columns:1fr}
+  .form-row{grid-template-columns:1fr;gap:0}
+
+  /* Stat cards */
+  .stat-card{padding:14px}
+  .stat-value{font-size:22px}
+  .stat-icon{width:32px;height:32px;font-size:14px;margin-bottom:7px}
+  .stat-sub{display:none}
+
+  /* Topbar title */
+  .page-title h2{font-size:15px}
+  #main-btn{font-size:12px;padding:7px 10px}
+
+  /* Bottom nav */
+  .bottom-nav{display:block}
+
+  /* Modal → bottom sheet */
+  .modal-overlay{align-items:flex-end}
+  .modal{width:100%;max-width:100%;border-radius:20px 20px 0 0;max-height:92vh}
+
+  /* PWA banner → above bottom nav */
+  .pwa-banner{bottom:76px;left:12px;right:12px;min-width:unset;
+    transform:none;animation:slideUp .4s cubic-bezier(.34,1.56,.64,1)}
+
+  /* SOP steps */
+  .step-actions{flex-direction:row;margin-top:8px;width:100%;justify-content:flex-end}
+
+  /* Recipe card footer */
+  .rc-foot{flex-wrap:wrap}
+  .rc-foot .btn{flex:1;min-width:56px;justify-content:center}
+
+  /* Ingredient editor */
+  .ing-editor-head,.ing-row{grid-template-columns:1.6fr .7fr .7fr 28px}
+
+  /* Calc multiplier */
+  .mult-btns{grid-template-columns:repeat(4,1fr);gap:6px}
+
+  /* Cards padding */
+  .card-body{padding:14px}
+  .calc-pb{padding:14px}
+
+  /* Print preview */
+  .print-preview-area{padding:14px}
+}
+
+/* ── RESPONSIVE: SMALL MOBILE (≤480px) ── */
+@media(max-width:480px){
+  .stats-grid{gap:8px}
+  .stat-card{padding:12px}
+  .stat-value{font-size:19px}
+  .mult-btns{grid-template-columns:repeat(4,1fr);gap:4px}
+  .mult-btn{padding:7px 3px;font-size:10px}
+  #btn-install,#btn-update{display:none!important}
+  .page-content{padding:12px 10px}
+  .topbar{padding:0 12px}
+  /* Stack form row truly single column */
+  .form-row > .form-group{margin-bottom:12px}
+}
+
 /* ── PRINT CSS ── */
 @media print{
-  .sidebar,.topbar,.toast-wrap,.modal-overlay{display:none!important}
-  .main{margin-left:0}
+  .sidebar,.topbar,.toast-wrap,.modal-overlay,.bottom-nav,.hamburger{display:none!important}
+  .main{margin-left:0;padding-bottom:0}
   .page-content{display:block!important;padding:0}
   body{background:#fff;color:#000}
   *{box-shadow:none!important}
@@ -362,10 +474,37 @@ textarea.form-input{resize:vertical;min-height:76px}
   </div>
 </aside>
 
+<!-- Sidebar overlay (mobile tap-outside to close) -->
+<div class="sidebar-overlay" id="sidebar-overlay" onclick="closeSidebar()"></div>
+
+<!-- Bottom Navigation (mobile) -->
+<nav class="bottom-nav" role="navigation" aria-label="底部導航">
+  <div class="bn-items">
+    <button class="bn-item active" id="bn-dashboard" onclick="go('dashboard')">
+      <span class="bn-icon">📊</span><span>儀表板</span>
+    </button>
+    <button class="bn-item" id="bn-recipes" onclick="go('recipes')">
+      <span class="bn-icon">📖</span><span>食譜</span>
+    </button>
+    <button class="bn-item" id="bn-calculator" onclick="go('calculator')">
+      <span class="bn-icon">🧮</span><span>計算</span>
+    </button>
+    <button class="bn-item" id="bn-sop" onclick="go('sop')">
+      <span class="bn-icon">📋</span><span>SOP</span>
+    </button>
+    <button class="bn-item" id="bn-print" onclick="go('print')">
+      <span class="bn-icon">🖨️</span><span>列印</span>
+    </button>
+  </div>
+</nav>
+
 <!-- ════ MAIN ════ -->
 <main class="main">
   <div class="topbar">
-    <div class="page-title"><h2 id="page-h2">儀表板</h2></div>
+    <div style="display:flex;align-items:center;gap:10px;min-width:0">
+      <button class="hamburger" onclick="toggleSidebar()" aria-label="選單">☰</button>
+      <div class="page-title"><h2 id="page-h2">儀表板</h2></div>
+    </div>
     <div class="topbar-actions">
       <button class="btn btn-secondary btn-sm" onclick="openIE()">⬆ 匯入/匯出</button>
       <button class="btn btn-teal btn-sm" id="btn-install" onclick="pwaInstall()">📲 安裝應用</button>
@@ -800,17 +939,38 @@ const MAIN_BTN = {dashboard:'＋ 新增食譜',recipes:'＋ 新增食譜',calcul
 
 function go(page){
   S.curPage = page;
+  // Sidebar nav
   document.querySelectorAll('.nav-item').forEach(el => el.classList.remove('active'));
   document.querySelector(`.nav-item[onclick="go('${page}')"]`).classList.add('active');
+  // Bottom nav
+  document.querySelectorAll('.bn-item').forEach(el => el.classList.remove('active'));
+  const bn = document.getElementById(`bn-${page}`);
+  if(bn) bn.classList.add('active');
+  // Pages
   document.querySelectorAll('.page-content').forEach(el => el.classList.remove('active'));
   document.getElementById(`page-${page}`).classList.add('active');
   document.getElementById('page-h2').textContent = PAGE_TITLES[page]||page;
   document.getElementById('main-btn').textContent = MAIN_BTN[page]||'';
+  // Close sidebar on mobile after navigation
+  closeSidebar();
+  // Scroll to top
+  window.scrollTo({top:0,behavior:'smooth'});
   if(page==='dashboard') renderDash();
   if(page==='recipes'){ syncSelects(); filterR(); }
   if(page==='calculator'){ syncSelects(); if(S.calcRid){document.getElementById('calc-select').value=S.calcRid; calcUpdate();} }
   if(page==='sop'){ syncSelects(); if(S.sopRid){document.getElementById('sop-select').value=S.sopRid; loadSOP();} }
   if(page==='print') syncSelects();
+}
+
+function toggleSidebar(){
+  const s=document.querySelector('.sidebar');
+  const o=document.getElementById('sidebar-overlay');
+  const isOpen=s.classList.contains('open');
+  if(isOpen){ closeSidebar(); } else { s.classList.add('open'); o.classList.add('show'); }
+}
+function closeSidebar(){
+  document.querySelector('.sidebar').classList.remove('open');
+  document.getElementById('sidebar-overlay').classList.remove('show');
 }
 
 function mainAction(){
