@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html>
+<head><meta charset="UTF-8"><title>產生 PWA 圖示</title>
+<style>
+  body{font-family:sans-serif;padding:30px;background:#1a1a2e;color:#eee;text-align:center}
+  button{background:#f59e0b;color:#000;border:none;padding:12px 28px;border-radius:8px;
+    font-size:14px;font-weight:700;cursor:pointer;margin:8px}
+  button:hover{background:#d97706}
+  canvas{border-radius:22%;margin:10px;box-shadow:0 4px 20px rgba(0,0,0,.5)}
+  .info{font-size:12px;color:#888;margin:8px 0}
+</style>
+</head>
+<body>
+<h2 style="color:#f59e0b">🍳 廚房 SOP Pro — 圖示產生器</h2>
+<p>按下按鈕後，右鍵另存圖片到 <code style="color:#14b8a6">icons/</code> 資料夾</p>
+
+<div>
+  <canvas id="c192" width="192" height="192"></canvas>
+  <canvas id="c512" width="512" height="512"></canvas>
+</div>
+<div>
+  <button onclick="dl('c192','icon-192.png')">⬇ 下載 icon-192.png</button>
+  <button onclick="dl('c512','icon-512.png')">⬇ 下載 icon-512.png</button>
+</div>
+<p class="info">下載後放入 icons/ 資料夾，即可完成 PWA 圖示設定</p>
+
+<script>
+function draw(canvas) {
+  const s = canvas.width;
+  const ctx = canvas.getContext('2d');
+  const r = s * 0.22;
+
+  // Background
+  const bgGrad = ctx.createLinearGradient(0,0,s,s);
+  bgGrad.addColorStop(0,'#0f1a30');
+  bgGrad.addColorStop(1,'#0a0f1e');
+  roundRect(ctx, 0, 0, s, s, r, bgGrad);
+
+  // Glow
+  const glow = ctx.createRadialGradient(s*.45, s*.62, 0, s*.45, s*.62, s*.35);
+  glow.addColorStop(0,'rgba(245,158,11,0.18)');
+  glow.addColorStop(1,'rgba(245,158,11,0)');
+  ctx.fillStyle = glow;
+  ctx.fillRect(0,0,s,s);
+
+  // Pan body
+  const panGrad = ctx.createLinearGradient(s*.18, s*.48, s*.82, s*.72);
+  panGrad.addColorStop(0,'#fbbf24');
+  panGrad.addColorStop(1,'#b45309');
+  ctx.beginPath();
+  roundRect(ctx, s*.18, s*.48, s*.54, s*.24, s*.05, panGrad);
+
+  // Pan rim highlight
+  ctx.fillStyle = 'rgba(255,255,255,0.22)';
+  ctx.beginPath();
+  roundRect(ctx, s*.18, s*.48, s*.54, s*.05, [s*.05, s*.05, 0, 0], 'rgba(255,255,255,0.22)');
+
+  // Handle
+  roundRect(ctx, s*.70, s*.54, s*.18, s*.06, s*.03, panGrad);
+  ctx.fillStyle = 'rgba(255,255,255,0.15)';
+  roundRect(ctx, s*.70, s*.54, s*.18, s*.02, [s*.03, s*.03, 0, 0], 'rgba(255,255,255,0.15)');
+
+  // SOP text
+  ctx.font = `900 ${s*.135}px Arial Black, Arial, sans-serif`;
+  ctx.fillStyle = 'rgba(0,0,0,0.65)';
+  ctx.textAlign = 'center';
+  ctx.textBaseline = 'middle';
+  ctx.letterSpacing = `${s*.005}px`;
+  ctx.fillText('SOP', s*.45, s*.615);
+
+  // Steam lines
+  const steamGrad = ctx.createLinearGradient(0, s*.45, 0, s*.2);
+  steamGrad.addColorStop(0,'rgba(245,158,11,0.8)');
+  steamGrad.addColorStop(1,'rgba(245,158,11,0)');
+  ctx.strokeStyle = steamGrad;
+  ctx.lineWidth = s * 0.015;
+  ctx.lineCap = 'round';
+  [[.31,.46,.29,.35,.31,.23],[.45,.45,.43,.33,.45,.22],[.59,.46,.57,.35,.59,.23]].forEach(([x1,y1,cx,cy,x2,y2])=>{
+    ctx.beginPath();
+    ctx.moveTo(s*x1, s*y1);
+    ctx.quadraticCurveTo(s*cx, s*cy, s*x2, s*y2);
+    ctx.stroke();
+  });
+
+  // Teal accent circle
+  const tlGrad = ctx.createLinearGradient(s*.72, s*.12, s*.84, s*.24);
+  tlGrad.addColorStop(0,'#14b8a6');
+  tlGrad.addColorStop(1,'#0d9488');
+  ctx.beginPath();
+  ctx.arc(s*.77, s*.20, s*.06, 0, Math.PI*2);
+  ctx.fillStyle = tlGrad;
+  ctx.fill();
+  ctx.beginPath();
+  ctx.arc(s*.77, s*.20, s*.025, 0, Math.PI*2);
+  ctx.fillStyle = 'rgba(255,255,255,0.4)';
+  ctx.fill();
+
+  // PRO badge
+  ctx.fillStyle = 'rgba(245,158,11,0.18)';
+  roundRect(ctx, s*.10, s*.82, s*.17, s*.06, s*.015, 'rgba(245,158,11,0.18)');
+  ctx.strokeStyle = 'rgba(245,158,11,0.5)';
+  ctx.lineWidth = s*.003;
+  roundRect(ctx, s*.10, s*.82, s*.17, s*.06, s*.015, null, true);
+  ctx.font = `700 ${s*.028}px Arial, sans-serif`;
+  ctx.fillStyle = '#f59e0b';
+  ctx.textAlign = 'center';
+  ctx.fillText('PRO', s*.185, s*.858);
+}
+
+function roundRect(ctx, x, y, w, h, r, fill, stroke) {
+  ctx.beginPath();
+  const ri = typeof r === 'number' ? [r,r,r,r] : r;
+  ctx.moveTo(x + ri[0], y);
+  ctx.lineTo(x + w - ri[1], y);
+  ctx.quadraticCurveTo(x + w, y, x + w, y + ri[1]);
+  ctx.lineTo(x + w, y + h - ri[2]);
+  ctx.quadraticCurveTo(x + w, y + h, x + w - ri[2], y + h);
+  ctx.lineTo(x + ri[3], y + h);
+  ctx.quadraticCurveTo(x, y + h, x, y + h - ri[3]);
+  ctx.lineTo(x, y + ri[0]);
+  ctx.quadraticCurveTo(x, y, x + ri[0], y);
+  ctx.closePath();
+  if (fill) { ctx.fillStyle = fill; ctx.fill(); }
+  if (stroke) ctx.stroke();
+}
+
+function dl(id, name) {
+  const a = document.createElement('a');
+  a.download = name;
+  a.href = document.getElementById(id).toDataURL('image/png');
+  a.click();
+}
+
+draw(document.getElementById('c192'));
+draw(document.getElementById('c512'));
+</script>
+</body>
+</html>

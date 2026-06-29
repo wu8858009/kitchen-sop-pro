@@ -1,0 +1,67 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+  <defs>
+    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#0f1a30"/>
+      <stop offset="100%" style="stop-color:#0a0f1e"/>
+    </linearGradient>
+    <linearGradient id="gd" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#fbbf24"/>
+      <stop offset="100%" style="stop-color:#d97706"/>
+    </linearGradient>
+    <linearGradient id="tl" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#14b8a6"/>
+      <stop offset="100%" style="stop-color:#0d9488"/>
+    </linearGradient>
+    <filter id="glow">
+      <feGaussianBlur stdDeviation="8" result="blur"/>
+      <feComposite in="SourceGraphic" in2="blur" operator="over"/>
+    </filter>
+  </defs>
+
+  <!-- Background -->
+  <rect width="512" height="512" rx="112" fill="url(#bg)"/>
+
+  <!-- Subtle grid lines -->
+  <line x1="170" y1="0" x2="170" y2="512" stroke="rgba(255,255,255,0.03)" stroke-width="1"/>
+  <line x1="342" y1="0" x2="342" y2="512" stroke="rgba(255,255,255,0.03)" stroke-width="1"/>
+  <line x1="0" y1="170" x2="512" y2="170" stroke="rgba(255,255,255,0.03)" stroke-width="1"/>
+  <line x1="0" y1="342" x2="512" y2="342" stroke="rgba(255,255,255,0.03)" stroke-width="1"/>
+
+  <!-- Glow behind pan -->
+  <ellipse cx="230" cy="320" rx="140" ry="60" fill="rgba(245,158,11,0.12)" filter="url(#glow)"/>
+
+  <!-- Pan body -->
+  <rect x="90" y="250" width="280" height="120" rx="24" fill="url(#gd)"/>
+  <!-- Pan rim highlight -->
+  <rect x="90" y="250" width="280" height="22" rx="24" fill="rgba(255,255,255,0.18)"/>
+  <!-- Pan bottom shadow -->
+  <ellipse cx="230" cy="370" rx="140" ry="10" fill="rgba(0,0,0,0.3)"/>
+
+  <!-- Pan handle -->
+  <rect x="356" y="286" width="100" height="28" rx="14" fill="url(#gd)"/>
+  <rect x="356" y="286" width="100" height="10" rx="14" fill="rgba(255,255,255,0.15)"/>
+
+  <!-- SOP letters inside pan -->
+  <text x="228" y="332" font-family="Arial Black,Arial,sans-serif" font-size="68" font-weight="900"
+        fill="rgba(0,0,0,0.6)" text-anchor="middle" letter-spacing="4">SOP</text>
+
+  <!-- Steam 1 -->
+  <path d="M160 240 Q148 210 160 180 Q172 150 160 120" stroke="url(#gd)" stroke-width="7"
+        fill="none" stroke-linecap="round" opacity="0.7"/>
+  <!-- Steam 2 -->
+  <path d="M228 230 Q216 200 228 170 Q240 140 228 110" stroke="url(#gd)" stroke-width="7"
+        fill="none" stroke-linecap="round" opacity="0.85"/>
+  <!-- Steam 3 -->
+  <path d="M296 240 Q284 210 296 180 Q308 150 296 120" stroke="url(#gd)" stroke-width="7"
+        fill="none" stroke-linecap="round" opacity="0.7"/>
+
+  <!-- Top accent dot (teal) -->
+  <circle cx="380" cy="110" r="22" fill="url(#tl)" opacity="0.9"/>
+  <circle cx="380" cy="110" r="10" fill="rgba(255,255,255,0.35)"/>
+
+  <!-- Version badge -->
+  <rect x="52" y="420" width="86" height="28" rx="8" fill="rgba(245,158,11,0.18)"
+        stroke="rgba(245,158,11,0.4)" stroke-width="1"/>
+  <text x="95" y="439" font-family="Arial,sans-serif" font-size="14" font-weight="700"
+        fill="#f59e0b" text-anchor="middle" letter-spacing="1">PRO</text>
+</svg>
