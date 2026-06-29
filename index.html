@@ -39,6 +39,7 @@ body::before{content:'';position:fixed;inset:0;pointer-events:none;z-index:0;
 
 /* ── SIDEBAR ── */
 .sidebar{position:fixed;left:0;top:0;bottom:0;width:var(--sidebar-w);
+  height:100vh;height:100dvh;
   background:rgba(8,12,24,.97);border-right:1px solid var(--border);
   display:flex;flex-direction:column;z-index:100;backdrop-filter:blur(20px)}
 .sidebar-logo{padding:22px 18px;border-bottom:1px solid var(--border);
@@ -363,10 +364,9 @@ textarea.form-input{resize:vertical;min-height:76px}
   .main{margin-left:0!important;
     padding-bottom:calc(68px + env(safe-area-inset-bottom,0px))}
 
-  /* Topbar — 吸收瀏海/狀態列高度 */
+  /* Topbar — 吸收瀏海/狀態列高度，內容在安全區以下自動置中 */
   .topbar{padding:env(safe-area-inset-top,0px) 14px 0;
-    height:calc(54px + env(safe-area-inset-top,0px));
-    align-items:flex-end;padding-bottom:10px}
+    height:calc(54px + env(safe-area-inset-top,0px))}
 
   .page-content{padding:14px 12px}
 
@@ -481,7 +481,7 @@ textarea.form-input{resize:vertical;min-height:76px}
   .stat-value{font-size:19px}
   .stat-label{font-size:10px}
   .page-content{padding:12px 10px}
-  .topbar{padding:env(safe-area-inset-top,0px) 10px 10px;height:calc(52px + env(safe-area-inset-top,0px))}
+  .topbar{padding:env(safe-area-inset-top,0px) 10px 0;height:calc(52px + env(safe-area-inset-top,0px))}
   #btn-install,#btn-update{display:none!important}
 
   .rc-body{padding:10px 12px}
