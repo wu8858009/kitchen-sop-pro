@@ -1239,6 +1239,7 @@ textarea.form-input{resize:vertical;min-height:76px}
     <div class="staff-tab-bar">
       <button class="staff-tab active" id="stab-today" onclick="switchStaffTab('today')">🍱 今日記錄</button>
       <button class="staff-tab" id="stab-week" onclick="switchStaffTab('week')">📅 本週計畫</button>
+      <button class="staff-tab" id="stab-menu" onclick="switchStaffTab('menu')">📋 菜單管理</button>
       <button class="staff-tab" id="stab-settings" onclick="switchStaffTab('settings')">⚙ 設定</button>
     </div>
 
@@ -1269,7 +1270,7 @@ textarea.form-input{resize:vertical;min-height:76px}
             <div class="form-group">
               <label class="form-label">來源</label>
               <select class="form-input" id="slog-type" onchange="toggleStaffLogType()">
-                <option value="recipe">從食譜庫選取</option>
+                <option value="recipe">從員工餐菜單選取</option>
                 <option value="custom">自訂菜名</option>
               </select>
             </div>
@@ -1279,7 +1280,7 @@ textarea.form-input{resize:vertical;min-height:76px}
             </div>
           </div>
           <div class="form-group" id="slog-recipe-wrap">
-            <label class="form-label">選擇食譜</label>
+            <label class="form-label">選擇員工餐菜色</label>
             <select class="form-input" id="slog-recipe"></select>
           </div>
           <div class="form-group" id="slog-custom-wrap" style="display:none">
@@ -1302,8 +1303,31 @@ textarea.form-input{resize:vertical;min-height:76px}
 
     <!-- WEEK TAB -->
     <div class="staff-pane" id="spane-week">
-      <div style="font-size:12px;color:var(--text-secondary);margin-bottom:14px">規劃本週每日員工餐，自動儲存。選取食譜時可在今日記錄頁查看食材用量。</div>
+      <div style="font-size:12px;color:var(--text-secondary);margin-bottom:14px">規劃本週每日員工餐，自動儲存。菜色來自「菜單管理」頁籤。</div>
       <div class="week-grid" id="week-plan-grid"></div>
+    </div>
+
+    <!-- MENU TAB -->
+    <div class="staff-pane" id="spane-menu">
+      <div class="card" style="max-width:560px;margin-bottom:16px">
+        <div class="card-header">➕ 新增員工餐菜色</div>
+        <div class="card-body">
+          <div style="display:flex;gap:8px;align-items:flex-end">
+            <div class="form-group" style="width:80px;flex-shrink:0;margin-bottom:0">
+              <label class="form-label">表情符號</label>
+              <input type="text" class="form-input" id="smenu-emoji" placeholder="🍱" maxlength="4" style="text-align:center;font-size:20px">
+            </div>
+            <div class="form-group" style="flex:1;margin-bottom:0">
+              <label class="form-label">菜色名稱 *</label>
+              <input type="text" class="form-input" id="smenu-name" placeholder="例：滷肉飯、炒青菜…"
+                onkeydown="if(event.key==='Enter')addStaffRecipe()">
+            </div>
+            <button class="btn btn-primary" style="flex-shrink:0;margin-bottom:1px" onclick="addStaffRecipe()">＋ 新增</button>
+          </div>
+        </div>
+      </div>
+      <div style="font-size:12px;font-weight:700;color:var(--text-muted);letter-spacing:1px;text-transform:uppercase;margin-bottom:10px">員工餐菜單</div>
+      <div id="smenu-list"></div>
     </div>
 
     <!-- SETTINGS TAB -->
@@ -1572,7 +1596,7 @@ const S = {
   timerLog:[],
   // staff meal
   staffTab:'today',
-  staffMeal:{ staffCount:5, weekPlan:{}, todayLogs:[] },
+  staffMeal:{ staffCount:5, weekPlan:{}, todayLogs:[], staffRecipes:[] },
 };
 
 // ══════════════════════════════════════
@@ -1681,7 +1705,7 @@ function hydrate(){
   if(catRaw){ try{ const c=JSON.parse(catRaw); if(Array.isArray(c)&&c.length) S.cats=c; }catch{} }
   if(!S.cats.length) S.cats=[...DEFAULT_CATS];
   const staffRaw = localStorage.getItem('ksop_staff');
-  if(staffRaw){ try{ const d=JSON.parse(staffRaw); if(d) S.staffMeal=Object.assign({staffCount:5,weekPlan:{},todayLogs:[]},d); }catch{} }
+  if(staffRaw){ try{ const d=JSON.parse(staffRaw); if(d) S.staffMeal=Object.assign({staffCount:5,weekPlan:{},todayLogs:[],staffRecipes:[]},d); }catch{} }
 }
 
 function demo(){
@@ -2837,6 +2861,7 @@ function switchStaffTab(tab){
   document.getElementById('spane-'+tab).classList.add('active');
   if(tab==='today') renderStaffToday();
   if(tab==='week') renderWeekPlan();
+  if(tab==='menu') renderStaffRecipes();
   if(tab==='settings') renderStaffSettings();
 }
 
@@ -2860,8 +2885,8 @@ function renderStaffToday(){
     planWrap.style.display='';
     let planName='';
     if(plan.type==='recipe'){
-      const r=S.recipes.find(x=>x.id===plan.recipeId);
-      planName=r?`${r.emoji||'🍽'} ${r.name}`:'（食譜已刪除）';
+      const sr=(sm.staffRecipes||[]).find(x=>x.id===plan.recipeId);
+      planName=sr?`${sr.emoji||'🍱'} ${sr.name}`:'（菜色已刪除）';
     } else {
       planName=plan.customName||'（未設定）';
     }
@@ -2869,11 +2894,12 @@ function renderStaffToday(){
   } else {
     planWrap.style.display='none';
   }
-  // 食譜下拉
+  // 員工餐菜單下拉
   const sel=document.getElementById('slog-recipe');
   const prevVal=sel.value;
-  sel.innerHTML='<option value="">— 選擇食譜 —</option>'+
-    S.recipes.map(r=>`<option value="${r.id}">${r.emoji||'🍽'} ${r.name}</option>`).join('');
+  const staffRecipes=sm.staffRecipes||[];
+  sel.innerHTML='<option value="">— 選擇菜色 —</option>'+
+    staffRecipes.map(r=>`<option value="${r.id}">${r.emoji||'🍱'} ${r.name}</option>`).join('');
   if(prevVal) sel.value=prevVal;
   // 今日記錄列表
   const todayLogs=(sm.todayLogs||[]).filter(l=>l.date===tk).reverse();
@@ -2883,30 +2909,17 @@ function renderStaffToday(){
     return;
   }
   listEl.innerHTML=todayLogs.map(log=>{
-    let name='',emoji='🍱',ingsHtml='';
+    let name='',emoji='🍱';
     if(log.type==='recipe'){
-      const r=S.recipes.find(x=>x.id===log.recipeId);
-      if(r){
-        name=r.name; emoji=r.emoji||'🍽';
-        if(r.ingredients&&r.ingredients.length){
-          const base=parseServing(r.serving)||1;
-          const mult=log.portions/base;
-          ingsHtml='<div class="staff-ing-list">'+
-            r.ingredients.slice(0,6).map(i=>{
-              const q=i.qty*mult;
-              return `<span class="staff-ing-chip">${i.name} ${q%1===0?q:q.toFixed(1)}${i.unit}</span>`;
-            }).join('')+
-            (r.ingredients.length>6?`<span class="staff-ing-chip">+${r.ingredients.length-6} 更多</span>`:'')+
-            '</div>';
-        }
-      } else { name='（食譜已刪除）'; }
+      const sr=(sm.staffRecipes||[]).find(x=>x.id===log.recipeId);
+      if(sr){ name=sr.name; emoji=sr.emoji||'🍱'; }
+      else { name='（菜色已刪除）'; }
     } else { name=log.customName; }
     return `<div class="staff-log-item">
       <div class="staff-log-icon">${emoji}</div>
       <div style="flex:1;min-width:0">
         <div class="staff-log-name">${name}</div>
         <div class="staff-log-meta">👥 ${log.portions} 份 · ⏰ ${log.time||''}${log.note?' · 📝 '+log.note:''}</div>
-        ${ingsHtml}
       </div>
       <button class="btn btn-danger btn-sm" onclick="deleteStaffLog('${log.id}')">✕</button>
     </div>`;
@@ -2965,7 +2978,7 @@ function renderWeekPlan(){
     const key=d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0');
     const isToday=key===tk;
     const plan=(sm.weekPlan||{})[key]||{type:'recipe',recipeId:'',customName:'',note:''};
-    const recipeOpts=S.recipes.map(r=>`<option value="${r.id}"${plan.recipeId===r.id?' selected':''}>${r.emoji||'🍽'} ${r.name}</option>`).join('');
+    const recipeOpts=(sm.staffRecipes||[]).map(r=>`<option value="${r.id}"${plan.recipeId===r.id?' selected':''}>${r.emoji||'🍱'} ${r.name}</option>`).join('');
     html+=`<div class="week-day-card${isToday?' today':''}">
       <div>
         <span class="week-day-label">星期${dayLabels[i]}</span>
@@ -2973,7 +2986,7 @@ function renderWeekPlan(){
       </div>
       <div class="week-day-date">${d.getMonth()+1}/${d.getDate()}</div>
       <select class="form-input" id="wt-${key}" onchange="updateWeekPlanType('${key}')" style="font-size:12px;padding:5px 8px">
-        <option value="recipe"${plan.type==='recipe'?' selected':''}>從食譜選</option>
+        <option value="recipe"${plan.type==='recipe'?' selected':''}>從菜單選</option>
         <option value="custom"${plan.type==='custom'?' selected':''}>自訂菜名</option>
       </select>
       <div id="wr-${key}"${plan.type==='custom'?' style="display:none"':''}>
@@ -3012,6 +3025,45 @@ function saveWeekPlan(key){
     note:noteEl?noteEl.value.trim():''
   };
   persistStaff();
+}
+
+function renderStaffRecipes(){
+  const sm=S.staffMeal;
+  const list=sm.staffRecipes||[];
+  const el=document.getElementById('smenu-list');
+  if(!list.length){
+    el.innerHTML='<div style="text-align:center;padding:32px;color:var(--text-muted);font-size:13px">尚未新增任何菜色，請在上方新增。🍽</div>';
+    return;
+  }
+  el.innerHTML=list.map((r,i)=>`
+    <div class="staff-log-item">
+      <div class="staff-log-icon" style="font-size:22px">${r.emoji||'🍱'}</div>
+      <div style="flex:1;min-width:0">
+        <div class="staff-log-name">${r.name}</div>
+        <div class="staff-log-meta" style="margin-top:3px">菜色 #${i+1}</div>
+      </div>
+      <button class="btn btn-danger btn-sm" onclick="deleteStaffRecipe('${r.id}')">✕ 刪除</button>
+    </div>`).join('');
+}
+
+function addStaffRecipe(){
+  const emoji=document.getElementById('smenu-emoji').value.trim()||'🍱';
+  const name=document.getElementById('smenu-name').value.trim();
+  if(!name){ toast('請輸入菜色名稱','error'); return; }
+  if(!S.staffMeal.staffRecipes) S.staffMeal.staffRecipes=[];
+  S.staffMeal.staffRecipes.push({ id:uid(), name, emoji });
+  persistStaff();
+  document.getElementById('smenu-emoji').value='';
+  document.getElementById('smenu-name').value='';
+  renderStaffRecipes();
+  toast(`已新增「${name}」到員工餐菜單`,'success');
+}
+
+function deleteStaffRecipe(id){
+  S.staffMeal.staffRecipes=(S.staffMeal.staffRecipes||[]).filter(r=>r.id!==id);
+  persistStaff();
+  renderStaffRecipes();
+  toast('已刪除菜色','info');
 }
 
 function saveStaffCount(){
