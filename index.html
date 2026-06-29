@@ -496,6 +496,15 @@ textarea.form-input{resize:vertical;min-height:76px}
   *{box-shadow:none!important}
 }
 
+/* ── CATEGORY MANAGER ── */
+.cat-list-item{display:flex;align-items:center;gap:8px;padding:8px 12px;
+  background:rgba(255,255,255,.02);border:1px solid var(--border);border-radius:8px;
+  margin-bottom:6px;transition:var(--tr)}
+.cat-list-item:hover{background:var(--bg-glass)}
+.cat-list-name{flex:1;font-size:13px;font-weight:500;color:var(--text-primary)}
+.cat-list-count{font-size:11px;color:var(--text-muted);flex-shrink:0;
+  background:rgba(255,255,255,.05);padding:2px 7px;border-radius:10px}
+
 /* ── FAVORITE BUTTON ── */
 .fav-btn{background:transparent;border:none;cursor:pointer;font-size:18px;
   padding:2px 4px;line-height:1;transition:transform .2s;flex-shrink:0;margin-left:auto}
@@ -1164,12 +1173,11 @@ textarea.form-input{resize:vertical;min-height:76px}
           <input type="text" class="form-input" id="rm-name" placeholder="例：紅燒肉">
         </div>
         <div class="form-group">
-          <label class="form-label">料理分類</label>
-          <select class="form-input" id="rm-cat">
-            <option>主菜</option><option>副菜</option><option>湯品</option>
-            <option>醬料</option><option>點心</option><option>麵食</option>
-            <option>飯類</option><option>其他</option>
-          </select>
+          <label class="form-label" style="display:flex;justify-content:space-between;align-items:center">
+            料理分類
+            <button type="button" class="btn btn-secondary btn-sm" style="font-size:10px;padding:3px 8px" onclick="openCatManager()">⚙ 管理分類</button>
+          </label>
+          <select class="form-input" id="rm-cat"></select>
         </div>
       </div>
       <div class="form-row">
@@ -1283,6 +1291,32 @@ textarea.form-input{resize:vertical;min-height:76px}
   </div>
 </div>
 
+<!-- Category Manager Modal -->
+<div class="modal-overlay" id="modal-cats">
+  <div class="modal" style="max-width:420px">
+    <div class="modal-header">
+      <div class="modal-title">⚙ 管理料理分類</div>
+      <button class="modal-close" onclick="closeM('modal-cats')">✕</button>
+    </div>
+    <div class="modal-body">
+      <div class="form-group">
+        <label class="form-label">新增自訂分類</label>
+        <div style="display:flex;gap:7px">
+          <input type="text" class="form-input" id="cat-new-inp" placeholder="輸入分類名稱…" style="flex:1"
+            onkeydown="if(event.key==='Enter')addCat()">
+          <button class="btn btn-primary" onclick="addCat()">＋ 新增</button>
+        </div>
+      </div>
+      <div class="divider"></div>
+      <label class="form-label">現有分類</label>
+      <div id="cat-list" style="margin-top:8px"></div>
+    </div>
+    <div class="modal-footer">
+      <button class="btn btn-primary" onclick="closeM('modal-cats')">完成</button>
+    </div>
+  </div>
+</div>
+
 <!-- Toasts -->
 <div class="toast-wrap" id="toasts"></div>
 
@@ -1314,6 +1348,7 @@ const S = {
   toolTab:'converter',
   convTab:'weight',
   rmFav:false, // temp flag for modal
+  cats:[],
   // timer
   timerTotal:0,
   timerLeft:0,
@@ -1325,14 +1360,21 @@ const S = {
 // ══════════════════════════════════════
 //  STORAGE
 // ══════════════════════════════════════
+const DEFAULT_CATS = ['主菜','副菜','湯品','醬料','點心','麵食','飯類','其他'];
+
 function persist(){ localStorage.setItem('ksop_v2', JSON.stringify({r:S.recipes})); }
 function persistCost(){ localStorage.setItem('ksop_cost', JSON.stringify(S.costData)); }
+function persistCats(){ localStorage.setItem('ksop_cats', JSON.stringify(S.cats)); }
+
 function hydrate(){
   const raw = localStorage.getItem('ksop_v2');
   if(raw){ try{ S.recipes = JSON.parse(raw).r||[]; }catch{} }
   if(!S.recipes.length){ S.recipes = demo(); persist(); }
   const costRaw = localStorage.getItem('ksop_cost');
   if(costRaw){ try{ S.costData = JSON.parse(costRaw)||{}; }catch{} }
+  const catRaw = localStorage.getItem('ksop_cats');
+  if(catRaw){ try{ const c=JSON.parse(catRaw); if(Array.isArray(c)&&c.length) S.cats=c; }catch{} }
+  if(!S.cats.length) S.cats=[...DEFAULT_CATS];
 }
 
 function demo(){
@@ -1569,7 +1611,8 @@ function openRM(id){
   const r=id?S.recipes.find(x=>x.id===id):null;
   document.getElementById('rm-id').value=id||'';
   document.getElementById('rm-name').value=r?r.name:'';
-  document.getElementById('rm-cat').value=r?r.category:'主菜';
+  refreshCatSelect();
+  document.getElementById('rm-cat').value=r?r.category:(S.cats[0]||'主菜');
   document.getElementById('rm-serving').value=r?r.serving:'';
   document.getElementById('rm-time').value=r?r.time:'';
   document.getElementById('rm-notes').value=r?r.notes:'';
@@ -1656,11 +1699,13 @@ function delR(id){
 }
 
 function updateCatFilter(){
-  const cats=['',... new Set(S.recipes.map(r=>r.category).filter(Boolean))];
+  // Merge S.cats with any categories that exist in recipes (legacy data)
+  const used=new Set(S.recipes.map(r=>r.category).filter(Boolean));
+  const all=['', ...[...new Set([...S.cats, ...used])]];
   const el=document.getElementById('r-cat-filter');
   const cur=el.value;
-  el.innerHTML=cats.map(c=>`<option value="${c}">${c||'全部分類'}</option>`).join('');
-  el.value=cur;
+  el.innerHTML=all.map(c=>`<option value="${c}">${c||'全部分類'}</option>`).join('');
+  el.value=all.includes(cur)?cur:'';
 }
 
 // ══════════════════════════════════════
@@ -2254,6 +2299,66 @@ function timerLogEntry(){
     </div>`).join('');
 }
 
+// ══════════════════════════════════════
+//  CATEGORY MANAGER
+// ══════════════════════════════════════
+function refreshCatSelect(){
+  const el=document.getElementById('rm-cat'); if(!el) return;
+  const cur=el.value;
+  el.innerHTML=S.cats.map(c=>`<option value="${c}">${c}</option>`).join('');
+  if(S.cats.includes(cur)) el.value=cur;
+}
+function openCatManager(){
+  renderCatList();
+  showM('modal-cats');
+}
+function renderCatList(){
+  const el=document.getElementById('cat-list'); if(!el) return;
+  if(!S.cats.length){ el.innerHTML=`<div class="empty" style="padding:16px"><p>尚無分類</p></div>`; return; }
+  el.innerHTML=S.cats.map(c=>{
+    const count=S.recipes.filter(r=>r.category===c).length;
+    const isDefault=DEFAULT_CATS.includes(c);
+    return `<div class="cat-list-item">
+      <span class="cat-list-name">${isDefault?'<span style="font-size:9px;color:var(--text-muted);margin-right:4px">預設</span>':''}${c}</span>
+      <span class="cat-list-count">${count} 道食譜</span>
+      <button class="btn btn-danger btn-sm" onclick="delCat('${esc(c)}')">🗑</button>
+    </div>`;
+  }).join('');
+}
+function addCat(){
+  const inp=document.getElementById('cat-new-inp');
+  const name=inp.value.trim();
+  if(!name){ toast('請輸入分類名稱','error'); return; }
+  if(S.cats.includes(name)){ toast('此分類已存在','error'); return; }
+  if(name.length>20){ toast('分類名稱最多20字','error'); return; }
+  S.cats.push(name);
+  persistCats();
+  inp.value='';
+  renderCatList();
+  refreshCatSelect();
+  updateCatFilter();
+  toast(`已新增分類「${name}」`,'success');
+}
+function delCat(cat){
+  const count=S.recipes.filter(r=>r.category===cat).length;
+  const msg=count>0
+    ?`「${cat}」分類有 ${count} 道食譜，刪除後將自動移至「其他」。確定刪除？`
+    :`確定刪除分類「${cat}」？`;
+  if(!confirm(msg)) return;
+  if(count>0){
+    if(!S.cats.includes('其他')) S.cats.push('其他');
+    S.recipes.forEach(r=>{ if(r.category===cat) r.category='其他'; });
+    persist();
+  }
+  S.cats=S.cats.filter(c=>c!==cat);
+  persistCats();
+  renderCatList();
+  refreshCatSelect();
+  updateCatFilter();
+  filterR();
+  toast(`已刪除分類「${cat}」`,'info');
+}
+
 function buildRefTable(){
   const el=document.getElementById('ref-table-body');
   if(!el) return;
@@ -2278,6 +2383,7 @@ function buildRefTable(){
 hydrate();
 renderDash();
 syncSelects();
+refreshCatSelect();
 buildRefTable();
 </script>
 
