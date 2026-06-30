@@ -100,7 +100,7 @@ body::before{content:'';position:fixed;inset:0;pointer-events:none;z-index:0;
 @keyframes fadeIn{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:translateY(0)}}
 
 /* ── STATS GRID ── */
-.stats-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-bottom:22px}
+.stats-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:14px;margin-bottom:22px}
 .stat-card{background:var(--bg-card);border:1px solid var(--border);border-radius:var(--r);
   padding:18px;backdrop-filter:blur(10px);position:relative;overflow:hidden;transition:var(--tr)}
 .stat-card:hover{transform:translateY(-2px);box-shadow:var(--shadow)}
@@ -125,6 +125,7 @@ body::before{content:'';position:fixed;inset:0;pointer-events:none;z-index:0;
 .section-title{font-size:14px;font-weight:700;display:flex;align-items:center;gap:8px}
 .section-title::before{content:'';width:3px;height:15px;background:var(--accent-gold);border-radius:2px}
 .two-col{display:grid;grid-template-columns:1fr 1fr;gap:20px}
+.dash-main-grid{display:grid;grid-template-columns:3fr 2fr;gap:20px}
 .divider{height:1px;background:var(--border);margin:16px 0}
 
 /* ── CARD ── */
@@ -409,8 +410,9 @@ textarea.form-input{resize:vertical;min-height:76px}
   .page-title h2{font-size:15px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:140px}
   #main-btn{font-size:12px;padding:8px 12px;white-space:nowrap}
 
-  /* ── 統計卡片 2×2 ── */
-  .stats-grid{grid-template-columns:1fr 1fr;gap:10px;margin-bottom:14px}
+  /* ── 統計卡片 2×2+1 ── */
+  .stats-grid{grid-template-columns:repeat(2,1fr);gap:10px;margin-bottom:14px}
+  .stats-grid .stat-card:nth-child(5){grid-column:span 2}
   .stat-card{padding:13px}
   .stat-value{font-size:22px}
   .stat-icon{width:30px;height:30px;font-size:13px;margin-bottom:7px}
@@ -418,6 +420,7 @@ textarea.form-input{resize:vertical;min-height:76px}
 
   /* ── 版面堆疊 ── */
   .two-col{grid-template-columns:1fr!important;gap:14px}
+  .dash-main-grid{grid-template-columns:1fr!important;gap:14px}
   .calc-grid{grid-template-columns:1fr!important;gap:10px}
   .recipe-grid{grid-template-columns:1fr!important}
 
@@ -508,7 +511,8 @@ textarea.form-input{resize:vertical;min-height:76px}
 
 /* ══ 小螢幕 (≤430px) ══ */
 @media(max-width:430px){
-  .stats-grid{gap:8px}
+  .stats-grid{gap:6px}
+  .stats-grid .stat-card:nth-child(5){grid-column:span 2}
   .stat-card{padding:11px 12px}
   .stat-value{font-size:19px}
   .stat-label{font-size:10px}
@@ -887,7 +891,8 @@ textarea.form-input{resize:vertical;min-height:76px}
 
   <!-- ── DASHBOARD ── -->
   <div class="page-content active" id="page-dashboard">
-    <div class="stats-grid" style="grid-template-columns:repeat(5,1fr)">
+    <!-- 統計卡片列 -->
+    <div class="stats-grid">
       <div class="stat-card gold">
         <div class="stat-icon">📖</div>
         <div class="stat-value" id="s-recipes">0</div>
@@ -919,7 +924,9 @@ textarea.form-input{resize:vertical;min-height:76px}
         <div class="stat-sub" style="color:var(--accent-red)">▲ 需要補貨</div>
       </div>
     </div>
-    <div class="two-col">
+    <!-- 主內容區：左3右2 -->
+    <div class="dash-main-grid">
+      <!-- 左：最近食譜 -->
       <div>
         <div class="section-header">
           <div class="section-title">最近食譜</div>
@@ -927,6 +934,7 @@ textarea.form-input{resize:vertical;min-height:76px}
         </div>
         <div id="recent-list"></div>
       </div>
+      <!-- 右：快速計算 + 今日員工餐 -->
       <div>
         <div class="section-header"><div class="section-title">快速計算</div></div>
         <div class="card">
@@ -951,23 +959,23 @@ textarea.form-input{resize:vertical;min-height:76px}
             </div>
           </div>
         </div>
+        <!-- 今日員工餐計畫 -->
+        <div id="dash-staff-widget" style="margin-top:16px">
+          <div class="section-header">
+            <div class="section-title">今日員工餐計畫</div>
+            <button class="btn btn-secondary btn-sm" onclick="go('staff')">查看詳情</button>
+          </div>
+          <div id="dash-staff-today" class="card"><div class="card-body" style="color:var(--text-muted);font-size:13px">今日尚無員工餐計畫</div></div>
+        </div>
       </div>
     </div>
-    <!-- Inventory Summary Widget -->
+    <!-- 低庫存警示（全寬，有資料才顯示） -->
     <div id="dash-inv-widget" style="margin-top:20px;display:none">
       <div class="section-header">
         <div class="section-title">低庫存警示</div>
         <button class="btn btn-secondary btn-sm" onclick="go('inventory')">查看全部</button>
       </div>
       <div id="dash-inv-list"></div>
-    </div>
-    <!-- Today Staff Meal Widget -->
-    <div id="dash-staff-widget" style="margin-top:20px">
-      <div class="section-header">
-        <div class="section-title">今日員工餐計畫</div>
-        <button class="btn btn-secondary btn-sm" onclick="go('staff')">查看詳情</button>
-      </div>
-      <div id="dash-staff-today" class="card"><div class="card-body" style="color:var(--text-muted);font-size:13px">今日尚無員工餐計畫</div></div>
     </div>
   </div>
 
@@ -1448,6 +1456,15 @@ textarea.form-input{resize:vertical;min-height:76px}
                 onkeydown="if(event.key==='Enter')addStaffRecipe()">
             </div>
             <button class="btn btn-primary" style="flex-shrink:0;margin-bottom:1px" onclick="addStaffRecipe()">＋ 新增</button>
+          </div>
+        </div>
+      </div>
+      <div class="card" style="max-width:560px;margin-bottom:16px">
+        <div class="card-header">🔍 依食材查詢菜色</div>
+        <div class="card-body">
+          <div class="form-group" style="margin-bottom:0">
+            <label class="form-label">輸入今天的時菜或調味料，查出可以做哪些員工餐</label>
+            <input type="text" class="form-input" id="smenu-ing-search" placeholder="例：高麗菜、豬肉…" oninput="renderStaffRecipes()">
           </div>
         </div>
       </div>
@@ -3653,21 +3670,59 @@ function saveWeekDish(key, did){
 
 function renderStaffRecipes(){
   const sm=S.staffMeal;
-  const list=sm.staffRecipes||[];
+  const all=sm.staffRecipes||[];
+  const q=(document.getElementById('smenu-ing-search')?.value||'').trim().toLowerCase();
+  const list=q?all.filter(r=>(r.ingredients||[]).some(ing=>ing.name.toLowerCase().includes(q))):all;
   const el=document.getElementById('smenu-list');
   if(!list.length){
-    el.innerHTML='<div style="text-align:center;padding:32px;color:var(--text-muted);font-size:13px">尚未新增任何菜色，請在上方新增。🍽</div>';
+    el.innerHTML=`<div style="text-align:center;padding:32px;color:var(--text-muted);font-size:13px">${q?`找不到含有「${esc(q)}」的菜色 🔍`:'尚未新增任何菜色，請在上方新增。🍽'}</div>`;
     return;
   }
-  el.innerHTML=list.map((r,i)=>`
-    <div class="staff-log-item">
-      <div class="staff-log-icon" style="font-size:22px">${r.emoji||'🍱'}</div>
-      <div style="flex:1;min-width:0">
-        <div class="staff-log-name">${r.name}</div>
-        <div class="staff-log-meta" style="margin-top:3px">菜色 #${i+1}</div>
+  el.innerHTML=list.map((r,i)=>{
+    const ings=r.ingredients||[];
+    const chipsHtml=ings.map(ing=>`<span class="staff-ing-chip"${ing.type==='調味料'?' style="background:rgba(13,148,136,.1);border-color:rgba(13,148,136,.2);color:var(--accent-teal-l)"':''}>${ing.type==='調味料'?'🧂':'🥬'} ${esc(ing.name)} <span style="cursor:pointer;opacity:.6" onclick="removeStaffIng('${r.id}','${ing.id}')">✕</span></span>`).join('');
+    return `
+    <div class="staff-log-item" style="flex-direction:column;align-items:stretch">
+      <div style="display:flex;align-items:center;gap:12px">
+        <div class="staff-log-icon" style="font-size:22px">${r.emoji||'🍱'}</div>
+        <div style="flex:1;min-width:0">
+          <div class="staff-log-name">${esc(r.name)}</div>
+          <div class="staff-log-meta" style="margin-top:3px">菜色 #${i+1}${ings.length?` · ${ings.length} 項食材/調味料`:''}</div>
+        </div>
+        <button class="btn btn-danger btn-sm" onclick="deleteStaffRecipe('${r.id}')">✕ 刪除</button>
       </div>
-      <button class="btn btn-danger btn-sm" onclick="deleteStaffRecipe('${r.id}')">✕ 刪除</button>
-    </div>`).join('');
+      <div class="staff-ing-list">${chipsHtml||'<span style="font-size:11px;color:var(--text-muted)">尚未設定食材/調味料</span>'}</div>
+      <div style="display:flex;gap:6px;margin-top:8px">
+        <input type="text" class="form-input" id="ising-name-${r.id}" placeholder="新增食材/調味料名稱" style="flex:1;padding:7px 10px;font-size:12px" onkeydown="if(event.key==='Enter')addStaffIng('${r.id}')">
+        <select id="ising-type-${r.id}" style="padding:7px 8px;font-size:12px;background:var(--bg-secondary);border:1px solid var(--border);border-radius:6px;color:var(--text-primary)">
+          <option value="食材">🥬 食材</option>
+          <option value="調味料">🧂 調味料</option>
+        </select>
+        <button class="btn btn-secondary btn-sm" onclick="addStaffIng('${r.id}')">＋</button>
+      </div>
+    </div>`;
+  }).join('');
+}
+
+function addStaffIng(rid){
+  const nameEl=document.getElementById(`ising-name-${rid}`);
+  const typeEl=document.getElementById(`ising-type-${rid}`);
+  const name=nameEl.value.trim();
+  if(!name){ toast('請輸入食材/調味料名稱','error'); return; }
+  const r=(S.staffMeal.staffRecipes||[]).find(x=>x.id===rid);
+  if(!r) return;
+  if(!r.ingredients) r.ingredients=[];
+  r.ingredients.push({id:uid(), name, type:typeEl.value});
+  persistStaff();
+  renderStaffRecipes();
+}
+
+function removeStaffIng(rid, ingId){
+  const r=(S.staffMeal.staffRecipes||[]).find(x=>x.id===rid);
+  if(!r) return;
+  r.ingredients=(r.ingredients||[]).filter(i=>i.id!==ingId);
+  persistStaff();
+  renderStaffRecipes();
 }
 
 function addStaffRecipe(){
@@ -3675,7 +3730,7 @@ function addStaffRecipe(){
   const name=document.getElementById('smenu-name').value.trim();
   if(!name){ toast('請輸入菜色名稱','error'); return; }
   if(!S.staffMeal.staffRecipes) S.staffMeal.staffRecipes=[];
-  S.staffMeal.staffRecipes.push({ id:uid(), name, emoji });
+  S.staffMeal.staffRecipes.push({ id:uid(), name, emoji, ingredients:[] });
   persistStaff();
   document.getElementById('smenu-emoji').value='';
   document.getElementById('smenu-name').value='';
